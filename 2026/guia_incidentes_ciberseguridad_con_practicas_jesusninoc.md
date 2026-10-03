@@ -1,0 +1,4495 @@
+# Guía docente práctica — Incidentes de ciberseguridad
+
+> Las demos deben realizarse únicamente sobre equipos, redes, cuentas, dominios y dispositivos propios o expresamente autorizados.
+
+## Cómo utilizar este documento
+
+La propuesta sigue una secuencia repetible:
+
+```text
+TEORÍA
+  ↓
+CONCEPTO
+  ↓
+CASO
+  ↓
+DEMO
+  ↓
+PRÁCTICA DEL ALUMNADO
+  ↓
+EVIDENCIA
+  ↓
+CONCLUSIÓN
+```
+
+La intención es evitar que el módulo se convierta únicamente en una explicación teórica. Los cinco bloques pueden conectarse mediante un único caso práctico de incidente.
+
+## Demos principales de jesusninoc.com
+
+- [Revisión de reglas del firewall en Windows y Linux](https://www.jesusninoc.com/09/19/como-revisar-las-reglas-del-firewall-en-windows-y-linux/)
+- [Monitorización de interferencias WiFi con macOS](https://www.jesusninoc.com/09/18/monitorizacion-de-interferencias-wifi-con-macos/)
+- [Detección de movimiento con Wi-Fi mediante ESP32 y CSI](https://www.jesusninoc.com/09/18/como-detectar-movimiento-con-wi-fi-utilizando-un-esp32-y-csi/)
+- [Detector de dispositivos Bluetooth BLE en macOS](https://www.jesusninoc.com/09/19/detector-de-presencia-de-dispositivos-bluetooth-ble-en-macos/)
+- [Radar Wi-Fi en macOS con Swift y CoreWLAN](https://www.jesusninoc.com/09/27/crear-una-aplicacion-radar-wi-fi-en-macos-con-swift-y-corewlan/)
+- [Análisis de conexiones de red](https://www.jesusninoc.com/05/01/analisis-de-conexiones-de-red/)
+- [Análisis UDP con Wireshark](https://www.jesusninoc.com/03/15/analisis-de-conexiones-udp-con-wireshark/)
+- [Etiqueta Wireshark con prácticas y ejercicios](https://www.jesusninoc.com/tag/wireshark/)
+- [RawCap y análisis con Wireshark](https://www.jesusninoc.com/02/06/rawcap-analizador-de-red/)
+- [Criptografía, hashes y TLS con Python](https://www.jesusninoc.com/07/25/conceptos-importantes-en-python-relacionados-con-procesos-hilos-red-y-seguridad-2/)
+- [Programación segura en Python](https://www.jesusninoc.com/07/09/utilizacion-de-tecnicas-de-programacion-segura-en-python/)
+- [Listado de prácticas de seguridad](https://www.jesusninoc.com/02/11/listado-de-practicas-sobre-temas-de-seguridad/)
+- [Agente de ciberseguridad con Gemini y Python](https://www.jesusninoc.com/09/23/como-crear-un-agente-de-ciberseguridad-con-gemini-y-python/)
+
+---
+
+**Contenidos&#x20;**[[Ocultar](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#)]
+
+- [1. Desarrollo de planes de prevención y concienciación en ciberseguridad](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#1_Desarrollo_de_planes_de_prevencion_y_concienciacion_en_ciberseguridad)
+  - [Principios generales en materia de ciberseguridad](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Principios_generales_en_materia_de_ciberseguridad)
+    - [Confidencialidad](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Confidencialidad)
+    - [Integridad](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Integridad)
+    - [Disponibilidad](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Disponibilidad)
+    - [Autenticidad](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Autenticidad)
+    - [Trazabilidad](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Trazabilidad)
+    - [Mínimo privilegio](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Minimo_privilegio)
+    - [Defensa en profundidad](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Defensa_en_profundidad)
+    - [Gestión basada en riesgos](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Gestion_basada_en_riesgos)
+  - [Normativa de protección del puesto del trabajo](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Normativa_de_proteccion_del_puesto_del_trabajo)
+    - [Actualización de sistemas](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Actualizacion_de_sistemas)
+    - [Antivirus y EDR](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Antivirus_y_EDR)
+    - [Control de dispositivos](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Control_de_dispositivos)
+    - [Gestión de contraseñas](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Gestion_de_contrasenas)
+    - [Bloqueo automático](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Bloqueo_automatico)
+    - [Cifrado del dispositivo](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Cifrado_del_dispositivo)
+    - [Teletrabajo](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Teletrabajo)
+    - [Ingeniería social](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Ingenieria_social)
+  - [Plan de formación y concienciación en materia de ciberseguridad: objetivos e importancia, elementos esenciales](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Plan_de_formacion_y_concienciacion_en_materia_de_ciberseguridad_objetivos_e_importancia_elementos_esenciales)
+    - [Objetivos](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Objetivos)
+    - [Elementos esenciales](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Elementos_esenciales)
+    - [Segmentación de usuarios](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Segmentacion_de_usuarios)
+    - [Formación inicial](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Formacion_inicial)
+    - [Formación periódica](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Formacion_periodica)
+    - [Simulaciones de phishing](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Simulaciones_de_phishing)
+    - [Planificación e implementación](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Planificacion_e_implementacion)
+    - [Monitorización y evaluación](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Monitorizacion_y_evaluacion)
+  - [Materiales de formación y concienciación](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Materiales_de_formacion_y_concienciacion)
+    - [Identificar las necesidades de sensibilización con la ciberseguridad](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Identificar_las_necesidades_de_sensibilizacion_con_la_ciberseguridad)
+    - [Detectar las debilidades](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Detectar_las_debilidades)
+    - [Técnicas y herramientas para la formación y concienciación: carteles, alertas, correos electrónicos, sesiones y charlas específicas, entre otros](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Tecnicas_y_herramientas_para_la_formacion_y_concienciacion_carteles_alertas_correos_electronicos_sesiones_y_charlas_especificas_entre_otros)
+    - [Actividades para la evaluación del plan](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Actividades_para_la_evaluacion_del_plan)
+  - [Auditorías internas de cumplimiento en materia de prevención](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Auditorias_internas_de_cumplimiento_en_materia_de_prevencion)
+    - [Hallazgos de auditoría](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Hallazgos_de_auditoria)
+  - [Criptografía, certificados y firmas digitales](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Criptografia_certificados_y_firmas_digitales)
+    - [Criptografía de clave simétrica y de clave privada](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Criptografia_de_clave_simetrica_y_de_clave_privada)
+    - [Criptografía simétrica](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Criptografia_simetrica)
+    - [Criptografía asimétrica](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Criptografia_asimetrica)
+    - [Funciones resumen (Hash)](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Funciones_resumen_Hash)
+    - [Infraestructura PKI](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Infraestructura_PKI)
+    - [Intercambio de Diffie-Hellman](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Intercambio_de_Diffie-Hellman)
+- [2. Auditoría de incidentes de ciberseguridad](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#2_Auditoria_de_incidentes_de_ciberseguridad)
+  - [Taxonomía de incidentes de ciberseguridad](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Taxonomia_de_incidentes_de_ciberseguridad)
+    - [Malware](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Malware)
+    - [Compromiso de credenciales](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Compromiso_de_credenciales)
+    - [Acceso no autorizado](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Acceso_no_autorizado)
+    - [Exfiltración de información](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Exfiltracion_de_informacion)
+    - [Denegación de servicio](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Denegacion_de_servicio)
+    - [Incidentes web](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Incidentes_web)
+    - [Incidentes internos](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Incidentes_internos)
+    - [Incidentes físicos](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Incidentes_fisicos)
+  - [Controles, herramientas y mecanismos de monitorización, identificación, detección y alerta de incidentes: tipos y fuentes](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Controles_herramientas_y_mecanismos_de_monitorizacion_identificacion_deteccion_y_alerta_de_incidentes_tipos_y_fuentes)
+    - [Logs](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Logs)
+    - [SIEM](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#SIEM)
+    - [IDS](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#IDS)
+    - [IPS](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#IPS)
+    - [EDR](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#EDR)
+    - [NDR](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#NDR)
+    - [SOAR](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#SOAR)
+  - [Controles, herramientas y mecanismos de detección e identificación de incidentes de seguridad física](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Controles_herramientas_y_mecanismos_de_deteccion_e_identificacion_de_incidentes_de_seguridad_fisica)
+  - [Controles, herramientas y mecanismos de monitorización, identificación, detección y alerta de incidentes a través de la investigación en fuentes abiertas (OSINT)](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Controles_herramientas_y_mecanismos_de_monitorizacion_identificacion_deteccion_y_alerta_de_incidentes_a_traves_de_la_investigacion_en_fuentes_abiertas_OSINT)
+  - [Clasificación, valoración, documentación, seguimiento inicial de incidentes de ciberseguridad](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Clasificacion_valoracion_documentacion_seguimiento_inicial_de_incidentes_de_ciberseguridad)
+    - [Clasificación](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Clasificacion)
+    - [Valoración](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Valoracion)
+    - [Seguimiento inicial](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Seguimiento_inicial)
+- [3. Investigación de los incidentes de ciberseguridad](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#3_Investigacion_de_los_incidentes_de_ciberseguridad)
+  - [Recopilación de evidencias](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Recopilacion_de_evidencias)
+    - [Digitales](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Digitales)
+    - [Físicas](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Fisicas)
+    - [Evidencias externas](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Evidencias_externas)
+    - [Cadena de custodia](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Cadena_de_custodia)
+  - [Análisis de evidencias](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Analisis_de_evidencias)
+    - [Análisis de logs](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Analisis_de_logs)
+    - [Análisis de disco](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Analisis_de_disco)
+    - [Análisis de memoria](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Analisis_de_memoria)
+    - [Análisis de red](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Analisis_de_red)
+  - [Investigación del incidente](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Investigacion_del_incidente)
+    - [Construcción de una línea temporal](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Construccion_de_una_linea_temporal)
+  - [Intercambio de información del incidente con proveedores u organismos competentes](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Intercambio_de_informacion_del_incidente_con_proveedores_u_organismos_competentes)
+  - [Medidas de contención de incidentes](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Medidas_de_contencion_de_incidentes)
+    - [Contención de un equipo](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Contencion_de_un_equipo)
+    - [Contención de una cuenta](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Contencion_de_una_cuenta)
+    - [Contención de una red](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Contencion_de_una_red)
+    - [Contención de una aplicación](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Contencion_de_una_aplicacion)
+- [4. Implementación de medidas de ciberseguridad](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#4_Implementacion_de_medidas_de_ciberseguridad)
+  - [Desarrollar procedimientos de actuación detallados para dar respuesta, mitigar, eliminar o contener los tipos de incidentes](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Desarrollar_procedimientos_de_actuacion_detallados_para_dar_respuesta_mitigar_eliminar_o_contener_los_tipos_de_incidentes)
+    - [Playbooks](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Playbooks)
+  - [Implantar capacidades de ciberresiliencia: anticipación, resistencia, recuperación y evolución](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Implantar_capacidades_de_ciberresiliencia_anticipacion_resistencia_recuperacion_y_evolucion)
+    - [Anticipación](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Anticipacion)
+    - [Resistencia](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Resistencia)
+    - [Recuperación](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Recuperacion)
+    - [Evolución](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Evolucion)
+  - [Establecer flujos de toma de decisiones y escalado interno y/o externo adecuados](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Establecer_flujos_de_toma_de_decisiones_y_escalado_interno_yo_externo_adecuados)
+  - [Tareas para reestablecer los servicios afectados por incidentes](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Tareas_para_reestablecer_los_servicios_afectados_por_incidentes)
+  - [Documentación](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Documentacion)
+    - [Identificación](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Identificacion)
+    - [Descripción](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Descripcion)
+    - [Análisis](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Analisis)
+    - [Respuesta](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Respuesta)
+    - [Impacto](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Impacto)
+    - [Acciones posteriores](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Acciones_posteriores)
+  - [Seguimiento de incidentes para evitar una situación similar](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Seguimiento_de_incidentes_para_evitar_una_situacion_similar)
+- [5. Detección y documentación de incidentes de ciberseguridad](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#5_Deteccion_y_documentacion_de_incidentes_de_ciberseguridad)
+  - [Desarrollar procedimientos de actuación para la notificación de incidentes](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Desarrollar_procedimientos_de_actuacion_para_la_notificacion_de_incidentes)
+  - [Notificación interna de incidentes. Protocolos de actuación](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Notificacion_interna_de_incidentes_Protocolos_de_actuacion)
+    - [Ejemplo](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Ejemplo)
+  - [Notificación de incidentes a quienes corresponda](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Notificacion_de_incidentes_a_quienes_corresponda)
+  - [Computer Emergency Response Team (CERT/CSIRT). Equipos de respuesta ante emergencias informáticas](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Computer_Emergency_Response_Team_CERTCSIRT_Equipos_de_respuesta_ante_emergencias_informaticas)
+    - [Definición, antecedentes históricos, organización, objetivos. Ámbito de actuación](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Definicion_antecedentes_historicos_organizacion_objetivos_Ambito_de_actuacion)
+    - [Organización de un CSIRT](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Organizacion_de_un_CSIRT)
+    - [Funciones preventivas](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Funciones_preventivas)
+    - [Funciones durante un incidente](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Funciones_durante_un_incidente)
+    - [Funciones posteriores](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Funciones_posteriores)
+    - [Ámbito de actuación](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Ambito_de_actuacion)
+    - [CERT nacionales. Mecanismos de colaboración a nivel nacional e internacional](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#CERT_nacionales_Mecanismos_de_colaboracion_a_nivel_nacional_e_internacional)
+  - [Visión global del módulo](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/#Vision_global_del_modulo)
+
+# 1. Desarrollo de planes de prevención y concienciación en ciberseguridad
+
+**Qué explicar**
+- Definición y finalidad de «1. Desarrollo de planes de prevención y concienciación en ciberseguridad»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «1. Desarrollo de planes de prevención y concienciación en ciberseguridad».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «1. Desarrollo de planes de prevención y concienciación en ciberseguridad» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La prevención constituye una de las primeras líneas de defensa de una organización. El objetivo no consiste únicamente en instalar herramientas de seguridad, sino en establecer un sistema organizado de **personas, procesos y tecnologías** que reduzca la probabilidad de que se produzca un incidente y limite sus consecuencias cuando llegue a producirse.
+
+Una estrategia preventiva debe considerar tanto las amenazas externas como los errores humanos, las configuraciones incorrectas, las vulnerabilidades técnicas, los problemas organizativos y los riesgos derivados de proveedores y terceros.
+
+Puede representarse de la siguiente manera:
+
+```
+                    CIBERSEGURIDAD
+                         │
+       ┌─────────────────┼─────────────────┐
+       │                 │                 │
+    PERSONAS          PROCESOS         TECNOLOGÍA
+       │                 │                 │
+Formación          Procedimientos      Firewall
+Concienciación     Políticas           EDR
+Buenas prácticas   Planes              SIEM
+Responsabilidad    Auditorías          IDS/IPS
+       │                 │                 │
+       └─────────────────┼─────────────────┘
+                         │
+                    PREVENCIÓN
+                         │
+                  REDUCCIÓN DEL RIESGO
+```
+
+## Principios generales en materia de ciberseguridad
+
+**Qué explicar**
+- Definición y finalidad de «Principios generales en materia de ciberseguridad»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «Principios generales en materia de ciberseguridad».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Principios generales en materia de ciberseguridad» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La ciberseguridad debe entenderse como una actividad continua y no como una actuación puntual realizada después de un ataque.
+
+Entre sus principios fundamentales se encuentran:
+
+### Confidencialidad
+> **Prácticas relacionadas:**
+> - [Configuración de sistemas de control de acceso y autenticación de personas (Bastionado de redes y sistemas)](https://www.jesusninoc.com/02/07/configuracion-de-sistemas-de-control-de-acceso-y-autenticacion-de-personas-bastionado-de-redes-y-sistemas/)
+> - [Cómo usar MySQL para auditoría y control de accesos](https://www.jesusninoc.com/05/02/como-usar-mysql-para-auditoria-y-control-de-accesos/)
+
+**Qué explicar**
+- Control de acceso
+- Autenticación y autorización
+- Gestión de identidades y permisos
+- Cifrado y segmentación
+
+**Demo / práctica en clase**
+- Mostrar un usuario con permisos limitados y comprobar qué recursos puede consultar.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Confidencialidad» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La información solamente debe estar disponible para las personas, sistemas o procesos que estén autorizados.
+
+Por ejemplo, un empleado del departamento comercial no debería poder consultar las nóminas de toda la plantilla si sus funciones no lo requieren.
+
+Los mecanismos relacionados con la confidencialidad incluyen:
+
+- Control de acceso.
+- Autenticación.
+- Autorización.
+- Cifrado.
+- Gestión de permisos.
+- Segmentación de redes.
+- Gestión de identidades.
+
+### Integridad
+> **Prácticas relacionadas:**
+> - [Comprobar si ha cambiado algún fichero utilizando la función hash SHA1](https://www.jesusninoc.com/01/27/comprobar-si-ha-cambiado-algun-fichero-utilizando-la-funcion-hash-sha1/)
+> - [Ejecutar la función hash SHA1 sobre los ficheros de un directorio y almacenar el resultado en un fichero](https://www.jesusninoc.com/01/26/ejecutar-la-funcion-hash-sha1-sobre-los-ficheros-de-un-directorio-y-almacenar-el-resultado-en-un-fichero/)
+> - [Ejercicios de PowerShell: calcular el hash SHA256 de todos los procesos que se están ejecutando (crear una función compleja)](https://www.jesusninoc.com/12/23/ejercicios-de-powershell-calcular-el-hash-sha256-de-todos-los-procesos-que-se-estan-ejecutando-crear-una-funcion-compleja/)
+
+**Qué explicar**
+- Hash y firmas digitales
+- Control de cambios
+- Por qué una modificación altera el resumen criptográfico
+
+**Demo / práctica en clase**
+- Crear un fichero, calcular SHA-256, modificar un carácter y volver a calcularlo.
+
+**Recurso de jesusninoc.com:** [Hash y criptografía con Python](https://www.jesusninoc.com/07/09/utilizacion-de-tecnicas-de-programacion-segura-en-python/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Integridad» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La información debe mantenerse correcta y no sufrir modificaciones no autorizadas.
+
+Por ejemplo:
+
+```
+Salario original:
+2.000 €
+
+Modificación no autorizada:
+2.000 € → 20.000 €
+```
+
+Aunque el sistema continúe funcionando, la información ha perdido su integridad.
+
+Algunas medidas destinadas a protegerla son:
+
+- Hashes.
+- Firmas digitales.
+- Control de cambios.
+- Registros de actividad.
+- Control de versiones.
+- Permisos de escritura.
+- Sistemas de detección de modificaciones.
+
+### Disponibilidad
+> **Prácticas relacionadas:**
+> - [Implantación de soluciones de alta disponibilidad (Seguridad y alta disponibilidad)](https://www.jesusninoc.com/08/08/implantacion-de-soluciones-de-alta-disponibilidad-seguridad-y-alta-disponibilidad/)
+> - [¿Qué es un ataque de denegación de servicio distribuido (DDoS por sus siglas en inglés, Distributed Denial of Service)?](https://www.jesusninoc.com/03/18/que-es-un-ataque-de-denegacion-de-servicio-distribuido-ddos-por-sus-siglas-en-ingles-distributed-denial-of-service/)
+> - [Copia de seguridad comprimida (Versión Bash)](https://www.jesusninoc.com/06/26/copia-de-seguridad-comprimida-version-bash/)
+
+**Qué explicar**
+- Redundancia
+- Backups
+- Alta disponibilidad
+- Continuidad
+- DDoS como problema de disponibilidad
+
+**Demo / práctica en clase**
+- Plantear la caída de un servicio y diseñar un esquema de recuperación.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Disponibilidad» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Los sistemas y datos deben encontrarse disponibles cuando sean necesarios.
+
+Un ataque de denegación de servicio puede mantener intactos los datos pero impedir que los usuarios puedan acceder a una aplicación.
+
+Algunas medidas son:
+
+- Redundancia.
+- Copias de seguridad.
+- Sistemas de alta disponibilidad.
+- Balanceadores.
+- Protección frente a DDoS.
+- Planes de continuidad.
+- Sistemas de recuperación.
+
+### Autenticidad
+> **Prácticas relacionadas:**
+> - [Crear un servidor web con PowerShell (sin utilizar IIS) que utiliza certificados SSL/TLS para cifrar las comunicaciones entre el servidor y el cliente](https://www.jesusninoc.com/03/01/crear-un-servidor-web-con-powershell-sin-utilizar-iis-que-utiliza-certificados-ssl-tls-para-cifrar-las-comunicaciones-entre-el-servidor-y-el-cliente/)
+> - [Crear un servidor en Kotlin (con KTOR) que devuelva una página web utilizando HTTPS (creando el certificado desde PowerShell)](https://www.jesusninoc.com/06/20/crear-un-servidor-en-kotlin-con-ktor-que-devuelva-una-pagina-web-utilizando-https-creando-el-certificado-desde-powershell/)
+> - [Enviar una cadena segura (System.Security.SecureString) entre un cliente y un servidor cifrando la comunicación mediante el protocolo TCP/IP usando TLS 1.2 con un certificado X509 autofirmado en PowerShell](https://www.jesusninoc.com/03/14/enviar-una-cadena-segura-system-security-securestring-entre-un-cliente-y-un-servidor-cifrando-la-comunicacion-mediante-el-protocolo-tcp-ip-usando-tls-1-2-con-un-certificado-x509-autofirmado-en-power/)
+
+**Qué explicar**
+- Identidad
+- Autenticación
+- Certificados
+- Firmas digitales
+
+**Demo / práctica en clase**
+- Comparar autenticación mediante contraseña, MFA y certificado.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Autenticidad» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Permite comprobar que una identidad, comunicación o información procede realmente de quien afirma ser su emisor.
+
+Ejemplo:
+
+```
+Usuario → "Soy administrador"
+             │
+             ↓
+        ¿Puede demostrarlo?
+             │
+       ┌─────┴─────┐
+       │           │
+      Sí           No
+       │           │
+    Acceso      Denegación
+```
+
+### Trazabilidad
+> **Prácticas relacionadas:**
+> - [Saber quién inició sesión en el sistema operativo analizando el registro de eventos de Windows (se requieren privilegios de administrador)](https://www.jesusninoc.com/07/22/saber-quien-inicio-sesion-en-el-sistema-operativo-analizando-el-registro-de-eventos-de-windows-se-requieren-privilegios-de-administrador/)
+> - [Saber quién inició sesión en el sistema operativo de forma detallada analizando el registro de eventos de Windows (se requieren privilegios de administrador)](https://www.jesusninoc.com/07/23/saber-quien-inicio-sesion-en-el-sistema-operativo-de-forma-detallada-analizando-el-registro-de-eventos-de-windows-se-requieren-privilegios-de-administrador/)
+> - [Almacenar información convertida a bytes en un evento en el registro de eventos de aplicación](https://www.jesusninoc.com/05/05/almacenar-informacion-convertida-a-byte-en-un-evento-en-el-registro-de-eventos-de-aplicacion/)
+
+**Qué explicar**
+- Logs
+- Identidad del usuario
+- Fecha y hora
+- Correlación de acontecimientos
+- Valor forense
+
+**Demo / práctica en clase**
+- Analizar un conjunto pequeño de logs y reconstruir quién hizo qué.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Trazabilidad» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Las actividades realizadas sobre los sistemas deben poder relacionarse con usuarios, dispositivos, aplicaciones o procesos.
+
+Por ejemplo:
+
+```
+08:31:22 → usuario jgarcia → login correcto
+08:35:17 → usuario jgarcia → acceso a servidor
+08:37:42 → usuario jgarcia → modificación de archivo
+08:39:05 → usuario jgarcia → logout
+```
+
+La trazabilidad es especialmente importante durante la investigación posterior de un incidente.
+
+### Mínimo privilegio
+
+**Qué explicar**
+- Permisos mínimos necesarios
+- Roles
+- Separación de funciones
+- Riesgo de cuentas privilegiadas
+
+**Demo / práctica en clase**
+- Diseñar los permisos de recepción, RR. HH., técnico y administrador.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Mínimo privilegio» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Cada usuario debe disponer únicamente de los permisos necesarios para realizar sus funciones.
+
+Por ejemplo:
+
+```
+Usuario de recepción
+        ↓
+Correo + calendario
+        ↓
+NO acceso a:
+- Base de datos de RR. HH.
+- Servidores
+- Copias de seguridad
+- Consola de administración
+```
+
+### Defensa en profundidad
+> **Prácticas relacionadas:**
+> - [Adopción de pautas de seguridad informática (Seguridad y alta disponibilidad)](https://www.jesusninoc.com/08/03/adopcion-de-pautas-de-seguridad-informatica-seguridad-y-alta-disponibilidad/)
+> - [Implantación de mecanismos de seguridad activa (Seguridad y alta disponibilidad)](https://www.jesusninoc.com/08/04/implantacion-de-mecanismos-de-seguridad-activa-seguridad-y-alta-disponibilidad/)
+> - [Instalación y configuración de cortafuegos (Seguridad y alta disponibilidad)](https://www.jesusninoc.com/08/06/instalacion-y-configuracion-de-cortafuegos-seguridad-y-alta-disponibilidad/)
+
+**Qué explicar**
+- Capas de seguridad
+- Firewall
+- WAF
+- IDS/IPS
+- EDR
+- MFA
+- Backups
+
+**Demo / práctica en clase**
+- Dibujar las capas y retirar una de ellas para comprobar qué controles siguen funcionando.
+
+**Recurso de jesusninoc.com:** [Revisión de reglas de firewall en Windows y Linux](https://www.jesusninoc.com/09/19/como-revisar-las-reglas-del-firewall-en-windows-y-linux/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Defensa en profundidad» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La seguridad no debe depender de un único mecanismo.
+
+Una organización puede combinar:
+
+```
+Internet
+   ↓
+Firewall
+   ↓
+WAF
+   ↓
+Segmentación de red
+   ↓
+IDS/IPS
+   ↓
+EDR
+   ↓
+Autenticación multifactor
+   ↓
+Control de acceso
+   ↓
+Copias de seguridad
+```
+
+Si uno de los controles falla, otros pueden continuar proporcionando protección.
+
+### Gestión basada en riesgos
+> **Prácticas relacionadas:**
+> - [Evaluación de riesgos en la seguridad de la Tecnología de la Información](https://www.jesusninoc.com/11/03/evaluacion-de-riesgos-en-la-seguridad-de-la-tecnologia-de-la-informacion/)
+> - [Principales áreas de un Sistema de Gestión de Seguridad de la Información](https://www.jesusninoc.com/06/14/principales-areas-de-un-sistema-de-gestion-de-seguridad-de-la-informacion/)
+> - [Cumplimiento de la legislación y de las normas sobre seguridad (Seguridad informática)](https://www.jesusninoc.com/05/29/cumplimiento-de-la-legislacion-y-de-las-normas-sobre-seguridad-seguridad-informatica/)
+
+**Qué explicar**
+- Activo
+- Amenaza
+- Vulnerabilidad
+- Probabilidad
+- Impacto
+- Tratamiento del riesgo
+
+**Demo / práctica en clase**
+- Construir una matriz de riesgos con cuatro amenazas y justificar el tratamiento.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Gestión basada en riesgos» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+No todos los activos tienen la misma importancia ni todas las amenazas presentan la misma probabilidad.
+
+Una organización debe identificar:
+
+1. Activos.
+2. Amenazas.
+3. Vulnerabilidades.
+4. Probabilidad.
+5. Impacto.
+6. Riesgo.
+7. Medidas de tratamiento.
+
+Una representación simplificada sería:
+
+**Riesgo = Probabilidad × Impacto**
+
+Por ejemplo:
+
+| Amenaza          | Probabilidad | Impacto  | Riesgo |
+| ---------------- | ------------ | -------- | ------ |
+| Phishing         | Alta         | Medio    | Alto   |
+| Incendio del CPD | Baja         | Muy alto | Alto   |
+| Malware USB      | Media        | Medio    | Medio  |
+| DDoS             | Media        | Alto     | Alto   |
+
+El Esquema Nacional de Seguridad incorpora precisamente principios como la gestión de la seguridad basada en riesgos, la prevención, detección y respuesta, la vigilancia continua y la mejora continua.
+
+## Normativa de protección del puesto del trabajo
+
+**Qué explicar**
+- Definición y finalidad de «Normativa de protección del puesto del trabajo»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «Normativa de protección del puesto del trabajo».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Normativa de protección del puesto del trabajo» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+El puesto de trabajo constituye uno de los principales puntos de entrada de amenazas en una organización.
+
+Puede tratarse de:
+
+- Ordenadores de sobremesa.
+- Portátiles.
+- Tablets.
+- Teléfonos móviles.
+- Equipos virtuales.
+- Terminales industriales.
+- Dispositivos IoT.
+- Equipos utilizados para teletrabajo.
+
+La protección debe contemplar tanto aspectos técnicos como organizativos.
+
+### Actualización de sistemas
+> **Prácticas relacionadas:**
+> - [Analizar información obtenida sobre las actualizaciones (Get-HotFix)](https://www.jesusninoc.com/01/25/analizar-informacion-obtenida-sobre-las-actualizaciones-get-hotfix/)
+> - [Analizar información sobre actualizaciones con PowerShell](https://www.jesusninoc.com/07/01/analizar-informacion-sobre-actualizaciones-con-powershell/)
+> - [Actualización sobre hilos, procesos, red y seguridad en Python, utilizando las librerías y prácticas actuales](https://www.jesusninoc.com/07/31/actualizacion-sobre-hilos-procesos-red-y-seguridad-en-python-utilizando-las-librerias-y-practicas-actuales/)
+
+**Qué explicar**
+- Vulnerabilidades conocidas
+- Parcheado
+- Pruebas
+- Despliegue
+- Verificación
+
+**Demo / práctica en clase**
+- Construir un procedimiento de parcheado desde la publicación de una vulnerabilidad hasta la verificación.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Actualización de sistemas» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Los sistemas operativos y aplicaciones deben mantenerse actualizados para reducir la exposición a vulnerabilidades conocidas.
+
+Ejemplo:
+
+```
+Vulnerabilidad publicada
+        ↓
+Fabricante publica parche
+        ↓
+Evaluación de impacto
+        ↓
+Prueba
+        ↓
+Despliegue
+        ↓
+Verificación
+```
+
+### Antivirus y EDR
+> **Prácticas relacionadas:**
+> - [Examinar equipo utilizando Windows Defender](https://www.jesusninoc.com/07/31/examinar-equipo-utilizando-windows-defender/)
+> - [Starts a scan on a computer (Windows Defender)](https://www.jesusninoc.com/12/03/starts-a-scan-on-a-computer-windows-defender/)
+> - [Updates the antimalware definitions on a computer](https://www.jesusninoc.com/07/31/updates-the-antimalware-definitions-on-a-computer/)
+
+**Qué explicar**
+- Antivirus tradicional
+- EDR
+- Telemetría
+- Detección basada en comportamiento
+- Correlación de eventos
+
+**Demo / práctica en clase**
+- Representar la cadena Word → PowerShell → descarga → persistencia → conexión externa.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Antivirus y EDR» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Los antivirus tradicionales buscan principalmente códigos maliciosos conocidos y determinados comportamientos.
+
+Las soluciones **EDR (Endpoint Detection and Response)** permiten además recopilar información de los dispositivos y detectar comportamientos sospechosos.
+
+Ejemplo:
+
+```
+Word
+ ↓
+PowerShell
+ ↓
+Descarga de ejecutable
+ ↓
+Creación de tarea programada
+ ↓
+Conexión externa
+```
+
+La combinación de estos eventos puede generar una alerta aunque ninguno de ellos sea necesariamente malicioso por separado.
+
+### Control de dispositivos
+> **Prácticas relacionadas:**
+> - [Comprobación de dispositivos USB](https://www.jesusninoc.com/09/07/comprobacion-de-dispositivos-usb/)
+> - [Obtener información sobre los dispositivos USB conectados en un equipo del dominio con PowerShell](https://www.jesusninoc.com/07/23/obtener-informacion-sobre-los-dispositivos-usb-conectados-en-un-equipo-del-dominio-con-powershell/)
+> - [Detector de presencia de dispositivos Bluetooth BLE en macOS](https://www.jesusninoc.com/09/20/detector-de-presencia-de-dispositivos-bluetooth-ble-en-macos/)
+> - [Cómo leer y analizar una tarjeta NFC con Proxmark3 Easy en macOS](https://www.jesusninoc.com/09/20/como-leer-y-analizar-una-tarjeta-nfc-con-proxmark3-easy-en-macos/)
+
+**Qué explicar**
+- USB
+- Bluetooth
+- Cámaras
+- Micrófonos
+- Dispositivos móviles
+- Políticas de uso
+
+**Demo / práctica en clase**
+- Enumerar los dispositivos inalámbricos visibles en un equipo de laboratorio.
+
+**Recurso de jesusninoc.com:** [Detector de dispositivos Bluetooth BLE en macOS](https://www.jesusninoc.com/09/19/detector-de-presencia-de-dispositivos-bluetooth-ble-en-macos/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Control de dispositivos» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La organización puede establecer políticas para:
+
+- USB.
+- Discos externos.
+- Bluetooth.
+- Impresoras.
+- Cámaras.
+- Micrófonos.
+- Dispositivos móviles.
+
+### Gestión de contraseñas
+> **Prácticas relacionadas:**
+> - [Integración de Python con John The Ripper](https://www.jesusninoc.com/11/13/integracion-de-python-con-john-the-ripper/)
+> - [Contraseñas seguras con PowerShell: convertir en hash una contraseña](https://www.jesusninoc.com/07/07/contrasenas-seguras-con-powershell-convertir-en-hash-una-contrasena/)
+> - [Creación de hashes de contraseña NT4](https://www.jesusninoc.com/01/27/creacion-de-hashes-de-contrasena-nt4/)
+
+**Qué explicar**
+- Longitud
+- Reutilización
+- Gestores
+- MFA
+- Limitación de intentos
+- Protección de credenciales
+
+**Demo / práctica en clase**
+- Comparar contraseñas débiles y frases de paso y explicar por qué MFA añade una capa adicional.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Gestión de contraseñas» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Una política de contraseñas debe contemplar:
+
+- Longitud.
+- Protección frente a reutilización.
+- Bloqueo o limitación ante intentos repetidos.
+- Gestión segura.
+- No compartir credenciales.
+- Uso de gestores de contraseñas cuando proceda.
+- Autenticación multifactor.
+
+### Bloqueo automático
+
+**Qué explicar**
+- Riesgo del acceso físico
+- Bloqueo por inactividad
+- Políticas de puesto
+
+**Demo / práctica en clase**
+- Comprobar la configuración de bloqueo automático del sistema.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Bloqueo automático» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Los equipos deben bloquearse cuando permanecen inactivos durante un periodo determinado.
+
+Esto reduce el riesgo de acceso físico no autorizado.
+
+### Cifrado del dispositivo
+> **Prácticas relacionadas:**
+> - [Cifrado simétrico AES (Advanced Encryption Standard) en Kotlin, utilizaremos la clase Cipher proporcionada por el paquete javax.crypto utilizando una clave para cifrar](https://www.jesusninoc.com/01/30/cifrado-simetrico-aes-advanced-encryption-standard-en-kotlin-utilizaremos-la-clase-cipher-proporcionada-por-el-paquete-javax-crypto-utilizando-una-clave-para-cifrar/)
+> - [Cifrar y descifrar con AES Rijndael de 256 y modo de operación de unidad de cifrado ECB desde PowerShell](https://www.jesusninoc.com/02/08/cifrar-y-descifrar-con-aes-rijndael-de-256-y-modo-de-operacion-de-unidad-de-cifrado-ecb-desde-powershell/)
+> - [Cifrar y descifrar con AES desde PHP utilizando el modo de operación de cifrado de bloques ECB](https://www.jesusninoc.com/02/08/cifrar-y-descifrar-con-aes-desde-php-utilizando-el-modo-de-operacion-de-cifrado-de-bloques-ecb/)
+
+**Qué explicar**
+- Cifrado de almacenamiento
+- Protección frente a pérdida o robo
+- Claves de recuperación
+
+**Demo / práctica en clase**
+- Explicar qué protege el cifrado de disco y qué no protege frente a una sesión ya iniciada.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Cifrado del dispositivo» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+En equipos portátiles puede utilizarse cifrado completo del almacenamiento.
+
+De esta manera, el robo físico del ordenador no implica necesariamente acceso directo a la información almacenada.
+
+### Teletrabajo
+> **Prácticas relacionadas:**
+> - [Cerrar una sesión de acceso remoto RDP desde PowerShell](https://www.jesusninoc.com/04/30/cerrar-una-sesion-de-acceso-remoto-rdp-desde-powershell/)
+> - [Ejercicios de PowerShell: configurar el acceso remoto de un cliente para conectar con un servidor](https://www.jesusninoc.com/04/16/ejercicios-de-powershell-configurar-el-acceso-remoto-de-un-cliente-para-conectar-con-un-servidor/)
+> - [Gestión de acceso remoto (Servicios en red)](https://www.jesusninoc.com/04/10/gestion-de-acceso-remoto-servicios-en-red/)
+
+**Qué explicar**
+- MFA
+- VPN cuando proceda
+- Equipos gestionados
+- Red doméstica
+- Actualizaciones
+- BYOD
+
+**Demo / práctica en clase**
+- Construir un checklist de seguridad para teletrabajo.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Teletrabajo» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+El trabajo remoto requiere controles adicionales:
+
+- VPN cuando sea necesaria.
+- MFA.
+- Equipos corporativos gestionados.
+- Actualizaciones.
+- Protección endpoint.
+- Redes domésticas adecuadamente configuradas.
+- Prohibición o limitación del uso de dispositivos personales según la política de la organización.
+
+### Ingeniería social
+> **Prácticas relacionadas:**
+> - [Coinbase (web spoofing y phishing)](https://www.jesusninoc.com/03/02/coinbase-web-spoofing-y-phishing/)
+> - [WiZink Online (web spoofing y phishing)](https://www.jesusninoc.com/03/02/wizink-online-web-spoofing-y-phishing/)
+> - [Account notice: Your username needs attention‏ (PHISHING)](https://www.jesusninoc.com/10/03/account-notice-your-username-needs-attention%e2%80%8f-phishing/)
+
+**Qué explicar**
+- Phishing
+- Spear phishing
+- Smishing
+- Vishing
+- Pretexting
+- Baiting
+- Fraude del CEO
+
+**Demo / práctica en clase**
+- Analizar un correo simulado y localizar remitente, dominio, enlace, urgencia y petición de credenciales.
+
+**Recurso de jesusninoc.com:** [Listado de prácticas de seguridad](https://www.jesusninoc.com/02/11/listado-de-practicas-sobre-temas-de-seguridad/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Ingeniería social» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+El usuario debe conocer amenazas como:
+
+- *Phishing*.
+- *Spear phishing*.
+- *Vishing*.
+- *Smishing*.
+- *Baiting*.
+- *Pretexting*.
+- Fraude del CEO.
+- Robo de credenciales.
+
+Un control técnico puede bloquear un correo malicioso, pero la formación del usuario proporciona una capa adicional.
+
+## Plan de formación y concienciación en materia de ciberseguridad: objetivos e importancia, elementos esenciales
+
+**Qué explicar**
+- Reducir errores humanos
+- Reconocer amenazas
+- Mejorar la notificación
+- Aumentar el uso de controles
+
+**Demo / práctica en clase**
+- Definir cinco objetivos medibles para una campaña de concienciación.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Plan de formación y concienciación en materia de ciberseguridad: objetivos e importancia, elementos esenciales» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Un plan de formación busca desarrollar conocimientos y comportamientos adecuados en materia de seguridad.
+
+No debe limitarse a explicar conceptos técnicos.
+
+Un trabajador puede no conocer cómo funciona un ataque *phishing*, pero sí debe ser capaz de reconocer señales de alerta y saber cómo actuar.
+
+### Objetivos
+
+**Qué explicar**
+- Definición y finalidad de «Objetivos»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «Objetivos».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Objetivos» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Entre los objetivos pueden incluirse:
+
+- Reducir errores humanos.
+- Mejorar la identificación de amenazas.
+- Fomentar el uso seguro de contraseñas.
+- Mejorar la protección de la información.
+- Incrementar el uso de MFA.
+- Reducir el éxito de campañas de *phishing*.
+- Mejorar la comunicación de incidentes.
+- Conocer las políticas internas.
+- Proteger dispositivos corporativos.
+- Mejorar la cultura de seguridad.
+
+### Elementos esenciales
+
+**Qué explicar**
+- Diagnóstico
+- Objetivos
+- Público
+- Contenidos
+- Materiales
+- Formación
+- Simulación
+- Evaluación
+- Mejora
+
+**Demo / práctica en clase**
+- Construir el ciclo completo de una campaña de concienciación.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Elementos esenciales» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Un programa de concienciación puede contener:
+
+```
+Diagnóstico
+    ↓
+Objetivos
+    ↓
+Público objetivo
+    ↓
+Contenidos
+    ↓
+Materiales
+    ↓
+Formación
+    ↓
+Simulaciones
+    ↓
+Evaluación
+    ↓
+Mejora
+```
+
+### Segmentación de usuarios
+> **Prácticas relacionadas:**
+> - [Ejercicios de PowerShell: crear usuarios en AD (Active Directory), carpeta compartida y asignar permisos](https://www.jesusninoc.com/04/28/ejercicios-de-powershell-crear-usuarios-en-ad-active-directory-carpeta-compartida-y-asignar-permisos/)
+> - [8. Gestión de usuarios en PowerShell para administradores de sistemas (nivel básico)](https://www.jesusninoc.com/11/14/8-gestion-de-usuarios-en-powershell-para-administradores-de-sistemas/)
+> - [Analizar información sobre usuarios con PowerShell (parte 1)](https://www.jesusninoc.com/02/12/analizar-informacion-sobre-usuarios-con-powershell-parte-1/)
+
+**Qué explicar**
+- Perfiles
+- Riesgos específicos
+- Formación por rol
+- Privilegios
+
+**Demo / práctica en clase**
+- Diseñar una tabla de formación para dirección, RR. HH., técnicos, desarrolladores y usuarios.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Segmentación de usuarios» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+No todos los empleados necesitan exactamente la misma formación.
+
+Por ejemplo:
+
+| Perfil          | Formación                                          |
+| --------------- | -------------------------------------------------- |
+| Dirección       | Fraude, información sensible, riesgos estratégicos |
+| RR. HH.         | Protección de datos, phishing, información laboral |
+| Administración  | Fraude financiero, correo electrónico              |
+| Técnicos        | Hardening, vulnerabilidades, monitorización        |
+| Desarrolladores | Desarrollo seguro                                  |
+| Todos           | Phishing, contraseñas, MFA, incidentes             |
+
+### Formación inicial
+
+**Qué explicar**
+- Acogida
+- Políticas
+- Uso aceptable
+- Contraseñas
+- Correo
+- Incidentes
+
+**Demo / práctica en clase**
+- Diseñar una sesión de 30 minutos para una persona que se incorpora a una empresa.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Formación inicial» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Debe realizarse cuando una persona se incorpora a la organización.
+
+Puede incluir:
+
+- Política de seguridad.
+- Uso aceptable.
+- Contraseñas.
+- Correo.
+- Dispositivos.
+- Protección de información.
+- Notificación de incidentes.
+
+### Formación periódica
+
+**Qué explicar**
+- Microformación
+- Boletines
+- Simulaciones
+- Charlas
+- Campañas
+
+**Demo / práctica en clase**
+- Crear un calendario anual de concienciación.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Formación periódica» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La seguridad cambia constantemente. Por ello, deben realizarse acciones periódicas:
+
+- Cursos.
+- Microformaciones.
+- Boletines.
+- Simulaciones.
+- Charlas.
+- Campañas.
+
+### Simulaciones de phishing
+
+**Qué explicar**
+- Objetivo educativo
+- Métricas
+- Clics
+- Credenciales
+- Repetición de campañas
+- Privacidad
+
+**Demo / práctica en clase**
+- Analizar resultados ficticios de una campaña y decidir qué formación aplicar.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Simulaciones de phishing» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Se pueden enviar mensajes simulados para comprobar la respuesta de los usuarios.
+
+Ejemplo:
+
+```
+Campaña:
+100 empleados
+
+                    ↓
+
+25 abren el mensaje
+10 acceden al enlace
+3 introducen credenciales
+                    ↓
+             Resultado
+                    ↓
+     Reforzar formación
+```
+
+El objetivo debe ser **educativo**, no punitivo.
+
+### Planificación e implementación
+
+**Qué explicar**
+- Diagnóstico
+- Diseño
+- Preparación
+- Ejecución
+- Evaluación
+- Mejora
+
+**Demo / práctica en clase**
+- Convertir una necesidad de seguridad en un plan de seis fases.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Planificación e implementación» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La implementación debe comenzar con un diagnóstico.
+
+Ejemplo:
+
+```
+FASE 1 → Diagnóstico
+FASE 2 → Diseño
+FASE 3 → Preparación
+FASE 4 → Ejecución
+FASE 5 → Evaluación
+FASE 6 → Mejora
+```
+
+### Monitorización y evaluación
+
+**Qué explicar**
+- Tasa de clics
+- Finalización
+- Incidentes comunicados
+- Tiempo de notificación
+- Comparación antes/después
+
+**Demo / práctica en clase**
+- Calcular indicadores de una campaña con datos ficticios.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Monitorización y evaluación» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La formación debe medirse mediante indicadores.
+
+Por ejemplo:
+
+- Porcentaje de trabajadores formados.
+- Tasa de finalización.
+- Resultados de cuestionarios.
+- Número de incidentes comunicados.
+- Tasa de clics en simulaciones.
+- Tasa de introducción de credenciales.
+- Tiempo medio de notificación.
+- Número de incumplimientos.
+
+Una métrica puede representarse como:
+
+**Tasa de clics = usuarios que hicieron clic / usuarios que recibieron la campaña × 100**
+
+---
+
+## Materiales de formación y concienciación
+
+**Qué explicar**
+- Definición y finalidad de «Materiales de formación y concienciación»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «Materiales de formación y concienciación».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Materiales de formación y concienciación» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Los materiales deben adaptarse al perfil del usuario y al objetivo de la campaña.
+
+Pueden utilizarse:
+
+- Carteles.
+- Infografías.
+- Vídeos.
+- Presentaciones.
+- Manuales.
+- Guías rápidas.
+- Cuestionarios.
+- Simulaciones.
+- Correos.
+- Boletines.
+- Charlas.
+- *Newsletters*.
+- Píldoras formativas.
+- Preguntas frecuentes.
+
+### Identificar las necesidades de sensibilización con la ciberseguridad
+
+**Qué explicar**
+- Encuestas
+- Entrevistas
+- Auditorías
+- Simulaciones
+- Incidentes
+- Vulnerabilidades
+- Logs
+
+**Demo / práctica en clase**
+- A partir de tres incidentes, identificar qué necesidad formativa existe.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Identificar las necesidades de sensibilización con la ciberseguridad» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+El primer paso consiste en conocer qué problemas existen.
+
+Se pueden utilizar:
+
+- Encuestas.
+- Entrevistas.
+- Auditorías.
+- Simulaciones.
+- Análisis de incidentes.
+- Análisis de vulnerabilidades.
+- Revisión de registros.
+- Cuestionarios.
+
+Ejemplo:
+
+```
+Problema detectado:
+Muchos usuarios desconocen MFA
+
+             ↓
+
+Necesidad:
+Formación sobre MFA
+
+             ↓
+
+Acción:
+Vídeo + guía + práctica
+
+             ↓
+
+Evaluación:
+Nueva prueba de conocimientos
+```
+
+### Detectar las debilidades
+> **Prácticas relacionadas:**
+> - [Determinación de las herramientas de monitorización para detectar vulnerabilidades (Hacking ético)](https://www.jesusninoc.com/02/22/determinacion-de-las-herramientas-de-monitorizacion-para-detectar-vulnerabilidades-hacking-etico/)
+> - [Ataque y defensa en entorno de pruebas, a aplicaciones web (Hacking ético)](https://www.jesusninoc.com/02/26/ataque-y-defensa-en-entorno-de-pruebas-a-aplicaciones-web-hacking-etico/)
+> - [Ataque y defensa en entorno de pruebas, de las comunicaciones inalámbricas (Hacking ético)](https://www.jesusninoc.com/02/23/ataque-y-defensa-en-entorno-de-pruebas-de-las-comunicaciones-inalambricas-hacking-etico/)
+
+**Qué explicar**
+- Debilidades humanas
+- Técnicas
+- Organizativas
+- Priorización
+
+**Demo / práctica en clase**
+- Clasificar una lista de problemas en humanos, técnicos y organizativos.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Detectar las debilidades» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Las debilidades pueden ser:
+
+**Humanas**
+
+- Contraseñas débiles.
+- Compartición de credenciales.
+- Clics en enlaces maliciosos.
+- Falta de conocimiento.
+
+**Técnicas**
+
+- Software desactualizado.
+- Configuraciones inseguras.
+- Puertos innecesarios.
+- Falta de MFA.
+
+**Organizativas**
+
+- Procedimientos inexistentes.
+- Responsabilidades indefinidas.
+- Falta de escalado.
+- Ausencia de formación.
+
+### Técnicas y herramientas para la formación y concienciación: carteles, alertas, correos electrónicos, sesiones y charlas específicas, entre otros
+
+**Qué explicar**
+- Carteles
+- Alertas
+- Correo
+- Sesiones
+- Charlas
+- Píldoras formativas
+
+**Demo / práctica en clase**
+- Diseñar una mini campaña combinando tres formatos.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Técnicas y herramientas para la formación y concienciación: carteles, alertas, correos electrónicos, sesiones y charlas específicas, entre otros» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Una campaña puede combinar varios medios.
+
+#### Carteles
+
+**Qué explicar**
+- Definición y finalidad de «Carteles»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «Carteles».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Carteles» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Permiten transmitir mensajes breves.
+
+Ejemplo:
+
+> ¿Has recibido un correo sospechoso? No hagas clic. Comprueba el remitente y repórtalo.
+
+#### Alertas
+
+**Qué explicar**
+- Definición y finalidad de «Alertas»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «Alertas».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Alertas» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Pueden aparecer:
+
+- En el navegador.
+- En el correo.
+- En aplicaciones.
+- En el sistema operativo.
+- En herramientas de seguridad.
+
+#### Correos electrónicos
+> **Prácticas relacionadas:**
+> - [Enviar correos electrónicos utilizando la biblioteca JavaMail desde Kotlin](https://www.jesusninoc.com/07/31/enviar-correos-electronicos-utilizando-la-biblioteca-javamail-desde-kotlin/)
+> - [Analizar correo con spam](https://www.jesusninoc.com/01/03/analizar-correo-con-spam/)
+
+**Qué explicar**
+- Definición y finalidad de «Correos electrónicos»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «Correos electrónicos».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Correos electrónicos» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Permiten realizar campañas específicas.
+
+Ejemplo:
+
+```
+ASUNTO:
+¿Sabes reconocer un correo de phishing?
+
+CONTENIDO:
+3 señales para detectar un correo sospechoso...
+```
+
+#### Sesiones presenciales o virtuales
+
+**Qué explicar**
+- Definición y finalidad de «Sesiones presenciales o virtuales»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «Sesiones presenciales o virtuales».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Sesiones presenciales o virtuales» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Permiten resolver dudas y trabajar con casos reales.
+
+#### Charlas específicas
+
+**Qué explicar**
+- Definición y finalidad de «Charlas específicas»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «Charlas específicas».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Charlas específicas» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Pueden centrarse en una amenaza concreta:
+
+- Ransomware.
+- Phishing.
+- Fraude.
+- Ingeniería social.
+- Protección de datos.
+- Teletrabajo.
+
+### Actividades para la evaluación del plan
+
+**Qué explicar**
+- Cuestionarios
+- Exámenes
+- Simulaciones
+- Prácticas
+- Métricas
+- Antes/después
+
+**Demo / práctica en clase**
+- Diseñar una evaluación antes y después de una campaña.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Actividades para la evaluación del plan» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La evaluación puede combinar:
+
+- Cuestionarios.
+- Exámenes.
+- Simulaciones.
+- Ejercicios prácticos.
+- Entrevistas.
+- Métricas.
+- Comparación antes/después.
+
+Ejemplo:
+
+```
+Antes de la campaña:
+32 % detecta correctamente phishing
+
+Después:
+78 % detecta correctamente phishing
+```
+
+El dato permite determinar si la formación ha producido una mejora observable.
+
+## Auditorías internas de cumplimiento en materia de prevención
+
+**Qué explicar**
+- Política
+- Procedimiento
+- Evidencia
+- Aplicación real
+- Revisión
+- Acciones correctivas
+
+**Demo / práctica en clase**
+- Auditar un equipo de laboratorio con una checklist.
+
+**Recurso de jesusninoc.com:** [Revisión del firewall en Windows y Linux](https://www.jesusninoc.com/09/19/como-revisar-las-reglas-del-firewall-en-windows-y-linux/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Auditorías internas de cumplimiento en materia de prevención» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Una auditoría interna comprueba si las medidas previstas se están aplicando realmente.
+
+No basta con disponer de una política escrita.
+
+Debe comprobarse:
+
+```
+¿Existe la política?
+        ↓
+¿Está aprobada?
+        ↓
+¿Se comunica?
+        ↓
+¿Se aplica?
+        ↓
+¿Se puede demostrar?
+        ↓
+¿Se revisa?
+```
+
+Una auditoría puede revisar:
+
+- Políticas.
+- Procedimientos.
+- Usuarios.
+- Permisos.
+- Actualizaciones.
+- Copias de seguridad.
+- Registros.
+- Formación.
+- Sistemas de protección.
+- Gestión de incidentes.
+- Contratos con proveedores.
+
+### Hallazgos de auditoría
+> **Prácticas relacionadas:**
+> - [Auditoría de permisos peligrosos (777) (Versión Bash)](https://www.jesusninoc.com/06/26/auditoria-de-permisos-peligrosos-777-version-bash/)
+> - [Auditoría de incidentes de ciberseguridad (Incidentes de ciberseguridad)](https://www.jesusninoc.com/02/02/auditoria-de-incidentes-de-ciberseguridad-incidentes-de-ciberseguridad/)
+
+**Qué explicar**
+- Conformidad
+- Observación
+- No conformidad
+- Incumplimiento crítico
+- Evidencia
+
+**Demo / práctica en clase**
+- Presentar cinco controles y clasificar cada resultado de auditoría.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Hallazgos de auditoría» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Los resultados pueden clasificarse, por ejemplo, como:
+
+- Conformidad.
+- Observación.
+- No conformidad.
+- Incumplimiento crítico.
+
+Ejemplo:
+
+```
+Control:
+MFA para administradores
+
+Resultado:
+5 administradores
+
+MFA activo:
+4
+
+MFA inexistente:
+1
+
+Hallazgo:
+Incumplimiento
+```
+
+La auditoría debe generar acciones correctivas y responsables.
+
+---
+
+## Criptografía, certificados y firmas digitales
+> **Prácticas relacionadas:**
+> - [Establecer una conexión segura en PowerShell entre un cliente y un servidor utilizando sockets seguros (SSL) recibiendo el certificado remotamente mediante el uso de la clase System.Net.Sockets.TcpClient y System.Net.Security.SslStream,](https://www.jesusninoc.com/02/28/establecer-una-conexion-segura-en-powershell-entre-un-cliente-y-un-servidor-utilizando-sockets-seguros-ssl-recibiendo-el-certificado-remotamente-mediante-el-uso-de-la-clase-system-net-sockets-tcpcli/)
+
+**Qué explicar**
+- Definición y finalidad de «Criptografía, certificados y firmas digitales»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «Criptografía, certificados y firmas digitales».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Criptografía, certificados y firmas digitales» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La criptografía proporciona mecanismos matemáticos para proteger información y comunicaciones.
+
+Sus objetivos principales son:
+
+- Confidencialidad.
+- Integridad.
+- Autenticidad.
+- No repudio, en determinados sistemas de firma.
+
+### Criptografía de clave simétrica y de clave privada
+> **Prácticas relacionadas:**
+> - [Cifrar y descifrar con RSA desde Java (generando clave privada y clave pública)](https://www.jesusninoc.com/02/05/cifrar-y-descifrar-con-rsa-desde-java-generando-clave-privada-y-clave-publica/)
+> - [Cifrar y descifrar con RSA utilizando ECB desde Java (generando clave privada y clave pública)](https://www.jesusninoc.com/02/05/cifrar-y-descifrar-con-rsa-utilizando-ecb-desde-java-generando-clave-privada-y-clave-publica/)
+> - [Cifrar y descifrar utilizando clave pública en Kotlin (RSA)](https://www.jesusninoc.com/06/16/cifrar-y-descifrar-utilizando-clave-publica-en-kotlin/)
+
+**Qué explicar**
+- Terminología simétrica/asimétrica
+- Clave pública
+- Clave privada
+- Usos
+
+**Demo / práctica en clase**
+- Diferenciar cifrado simétrico, asimétrico y firma digital.
+
+**Recurso de jesusninoc.com:** [RSA, hash y TLS con Python](https://www.jesusninoc.com/07/25/conceptos-importantes-en-python-relacionados-con-procesos-hilos-red-y-seguridad-2/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Criptografía de clave simétrica y de clave privada» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Aquí conviene corregir la terminología del programa: habitualmente se habla de **criptografía simétrica** y **criptografía asimétrica**, basada esta última en un par de claves: **clave privada y clave pública**.
+
+### Criptografía simétrica
+> **Prácticas relacionadas:**
+> - [Cifrado simétrico AES (Advanced Encryption Standard) en Kotlin (añadiendo una clave de tipo String)](https://www.jesusninoc.com/01/31/cifrado-simetrico-aes-advanced-encryption-standard-en-kotlin-anadiendo-una-clave-de-tipo-string/)
+> - [Cifrado simétrico AES (Advanced Encryption Standard) en Kotlin (añadiendo una clave en Base64)](https://www.jesusninoc.com/01/31/cifrado-simetrico-aes-advanced-encryption-standard-en-kotlin-anadiendo-una-clave-en-base64/)
+> - [Cifrado simétrico AES (Advanced Encryption Standard) en Kotlin, utilizaremos la clase Cipher proporcionada por el paquete javax.crypto](https://www.jesusninoc.com/08/02/cifrado-simetrico-aes-advanced-encryption-standard-en-kotlin-utilizaremos-la-clase-cipher-proporcionada-por-el-paquete-javax-crypto/)
+
+**Qué explicar**
+- Una clave
+- Cifrado y descifrado
+- AES
+- ChaCha20
+- Distribución de claves
+
+**Demo / práctica en clase**
+- Cifrar y descifrar un mensaje de laboratorio.
+
+**Recurso de jesusninoc.com:** [Criptografía con Python](https://www.jesusninoc.com/07/31/programacion-de-servicios-y-procesos-en-python/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Criptografía simétrica» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Utiliza una misma clave secreta para cifrar y descifrar.
+
+```
+                CLAVE
+                  │
+Mensaje ──→ CIFRADO ──→ Cifrado
+                           │
+                           ↓
+                       DESCIFRADO
+                           │
+                           ↓
+                         Mensaje
+```
+
+Ejemplo conceptual:
+
+```
+Clave = K
+
+Cifrar(Mensaje, K)
+       ↓
+   Texto cifrado
+
+Descifrar(Texto cifrado, K)
+       ↓
+     Mensaje
+```
+
+Algoritmos conocidos:
+
+- AES.
+- ChaCha20.
+
+El problema principal consiste en distribuir la clave de forma segura.
+
+### Criptografía asimétrica
+
+**Qué explicar**
+- Par de claves
+- Clave pública
+- Clave privada
+- RSA
+- ECC
+- Cifrado y firmas
+
+**Demo / práctica en clase**
+- Generar un par RSA y mostrar sus claves.
+
+**Recurso de jesusninoc.com:** [Generación de claves RSA en Python](https://www.jesusninoc.com/07/25/conceptos-importantes-en-python-relacionados-con-procesos-hilos-red-y-seguridad-2/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Criptografía asimétrica» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Utiliza dos claves relacionadas matemáticamente:
+
+- Clave pública.
+- Clave privada.
+
+La clave pública puede distribuirse.
+
+La clave privada debe permanecer protegida.
+
+```
+          Usuario A
+       ┌─────────────┐
+       │ Pública     │
+       │ Privada     │
+       └─────────────┘
+             │
+             ↓
+      Comunicación segura
+             │
+             ↓
+          Usuario B
+```
+
+Ejemplos:
+
+- RSA.
+- ECC.
+
+La criptografía asimétrica permite resolver problemas relacionados con intercambio de claves y firmas digitales.
+
+### Funciones resumen (Hash)
+> **Prácticas relacionadas:**
+> - [Ejecutar una función resumen (hash) por cada línea de un fichero desde Java](https://www.jesusninoc.com/01/15/ejecutar-una-funcion-resumen-hash-por-cada-linea-de-un-fichero-desde-java/)
+> - [Reverse hash (MD5/SHA1)](https://www.jesusninoc.com/02/02/reverse-hash-md5-sha1/)
+
+**Qué explicar**
+- SHA-256/SHA-512
+- Preimagen
+- Colisiones
+- Integridad
+- Huella de archivos
+
+**Demo / práctica en clase**
+- Modificar un fichero y comprobar que cambia su hash.
+
+**Recurso de jesusninoc.com:** [Técnicas de programación segura y hashes en Python](https://www.jesusninoc.com/07/09/utilizacion-de-tecnicas-de-programacion-segura-en-python/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Funciones resumen (Hash)» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Una función *hash* transforma una entrada de longitud variable en una salida de longitud determinada.
+
+Ejemplo:
+
+```
+"Hola"
+   ↓
+ SHA-256
+   ↓
+9f86d081884c7d659a2feaa0c55ad015...
+```
+
+Características deseables:
+
+- Determinismo.
+- Eficiencia.
+- Resistencia a encontrar una preimagen.
+- Resistencia a colisiones.
+
+Un cambio mínimo en el contenido debe producir un resultado completamente diferente.
+
+```
+Archivo A
+   ↓
+HASH A
+
+Archivo B
+   ↓
+HASH B
+
+HASH A ≠ HASH B
+```
+
+Por ello, los *hashes* son útiles para verificar la integridad de archivos.
+
+### Infraestructura PKI
+> **Prácticas relacionadas:**
+> - [Enviar una cadena segura (System.Security.SecureString) entre un cliente y un servidor cifrando la comunicación mediante el protocolo TCP/IP desde PowerShell utilizando un certificado X509 autofirmado creado desde OpenSSL](https://www.jesusninoc.com/03/13/enviar-una-cadena-segura-system-security-securestring-entre-un-cliente-y-un-servidor-cifrando-la-comunicacion-mediante-el-protocolo-tcp-ip-desde-powershell-utilizando-un-certificado-x509-autofirmado/)
+> - [Cifrar el tráfico entre un cliente y un servidor mediante el protocolo TCP/IP con un certificado X509 autofirmado en PowerShell](https://www.jesusninoc.com/03/11/cifrar-el-trafico-entre-un-cliente-y-un-servidor-mediante-el-protocolo-tcp-ip-con-un-certificado-x509-autofirmado-en-powershell/)
+
+**Qué explicar**
+- CA
+- RA
+- Certificado
+- Clave pública
+- CRL
+- OCSP
+- Cadena de confianza
+
+**Demo / práctica en clase**
+- Inspeccionar el certificado TLS de un sitio web y explicar su cadena de confianza.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Infraestructura PKI» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Una **PKI (Public Key Infrastructure)** permite gestionar certificados digitales y relaciones de confianza.
+
+Sus componentes pueden incluir:
+
+- Autoridad de certificación, CA.
+- Autoridad de registro, RA.
+- Certificados.
+- Claves públicas.
+- Claves privadas.
+- Listas de certificados revocados, CRL.
+- Servicios OCSP.
+- Políticas de certificación.
+
+Esquema simplificado:
+
+```
+              CA
+              │
+      ┌───────┼────────┐
+      ↓       ↓        ↓
+ Certificado Certificado Certificado
+      │       │        │
+ Usuario   Servidor   Servicio
+```
+
+Un certificado permite vincular una identidad con una clave pública mediante la confianza depositada en la autoridad certificadora.
+
+### Intercambio de Diffie-Hellman
+
+**Qué explicar**
+- Secreto compartido
+- Valores públicos
+- Claves privadas
+- Limitación frente a MITM
+- Autenticación
+
+**Demo / práctica en clase**
+- Simular en Python el intercambio de un secreto compartido.
+
+**Recurso de jesusninoc.com:** [Conceptos de criptografía y redes en Python](https://www.jesusninoc.com/07/25/conceptos-importantes-en-python-relacionados-con-procesos-hilos-red-y-seguridad-2/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Intercambio de Diffie-Hellman» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Diffie-Hellman permite establecer un secreto compartido utilizando un canal que puede ser observado por terceros.
+
+Conceptualmente:
+
+```
+            Alice                     Bob
+              │                        │
+       Parámetros públicos ───────────→│
+              │←───────────────────────│
+       Valor público A ───────────────→│
+              │←──────────── Valor B ──│
+              │                        │
+              ↓                        ↓
+       Secreto compartido       Secreto compartido
+```
+
+La idea fundamental es que:
+
+```
+Alice calcula → K
+Bob calcula   → K
+
+K_Alice = K_Bob
+```
+
+Un observador puede conocer determinados valores públicos pero no debería poder obtener el secreto privado a partir de ellos con recursos computacionales razonables.
+
+En sistemas modernos deben utilizarse variantes seguras y autenticadas, porque Diffie-Hellman por sí solo no resuelve el problema de un ataque de intermediario (*Man-in-the-Middle*).
+
+---
+
+# 2. Auditoría de incidentes de ciberseguridad
+
+**Qué explicar**
+- Definición y finalidad de «2. Auditoría de incidentes de ciberseguridad»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «2. Auditoría de incidentes de ciberseguridad».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «2. Auditoría de incidentes de ciberseguridad» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La auditoría de incidentes tiene como finalidad determinar **qué ocurrió, cuándo ocurrió, cómo ocurrió, qué sistemas fueron afectados, cuál fue el impacto y qué medidas deben adoptarse**.
+
+Una investigación puede comenzar con una alerta aparentemente sencilla:
+
+```
+Alerta EDR
+   ↓
+Equipo sospechoso
+   ↓
+¿Qué ocurrió?
+   ↓
+¿Desde cuándo?
+   ↓
+¿Quién inició la actividad?
+   ↓
+¿A qué sistemas accedió?
+   ↓
+¿Se extrajeron datos?
+   ↓
+¿Existen otros equipos afectados?
+```
+
+## Taxonomía de incidentes de ciberseguridad
+
+**Qué explicar**
+- Malware
+- Credenciales
+- Acceso no autorizado
+- Exfiltración
+- DDoS
+- Web
+- Internos
+- Físicos
+
+**Demo / práctica en clase**
+- Clasificar ocho escenarios de incidentes y justificar la categoría.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Taxonomía de incidentes de ciberseguridad» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La taxonomía permite clasificar los incidentes de acuerdo con diferentes características.
+
+### Malware
+> **Prácticas relacionadas:**
+> - [Malzilla malware hunting tool](https://www.jesusninoc.com/01/18/malzilla-malware-hunting-tool/)
+> - [Ejercicios de seguridad: práctica sobre virus en PowerShell](https://www.jesusninoc.com/01/10/ejercicios-de-seguridad-practica-sobre-virus-en-powershell/)
+
+**Qué explicar**
+- Virus
+- Gusanos
+- Troyanos
+- Ransomware
+- Spyware
+- Infostealers
+- Rootkits
+- Botnets
+
+**Demo / práctica en clase**
+- Analizar un escenario de malware y determinar indicadores, impacto y respuesta.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Malware» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Incluye:
+
+- Virus.
+- Gusanos.
+- Troyanos.
+- Ransomware.
+- Spyware.
+- *Infostealers*.
+- Rootkits.
+- Botnets.
+
+### Compromiso de credenciales
+> **Prácticas relacionadas:**
+> - [Ejercicios de PowerShell: crear un usuario con su contraseña, crear una carpeta para el usuario, compartir esa carpeta y añadir en esa carpeta un fichero con los hash de todos los procesos que se están ejecutando y otro fichero con los hash de los todos los ficheros dll. Todos los valores que necesitamos están escritos en un fichero](https://www.jesusninoc.com/11/26/ejercicios-de-powershell-crear-un-usuario-con-su-contrasena-crear-una-carpeta-para-el-usuario-compartir-esa-carpeta-y-anadir-en-esa-carpeta-un-fichero-con-los-hash-de-todos-los-procesos-que-se-esta/)
+
+**Qué explicar**
+- Phishing
+- Fuerza bruta
+- Credential stuffing
+- Filtraciones
+- Malware
+
+**Demo / práctica en clase**
+- Analizar logs de autenticación y detectar intentos repetidos.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Compromiso de credenciales» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Puede producirse mediante:
+
+- Phishing.
+- Fuerza bruta.
+- *Credential stuffing*.
+- Robo de contraseñas.
+- Filtraciones.
+- Malware.
+
+### Acceso no autorizado
+
+**Qué explicar**
+- Autenticación
+- Autorización
+- Privilegios
+- Logs
+- Movimiento lateral
+
+**Demo / práctica en clase**
+- Reconstruir un acceso no autorizado a partir de logs.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Acceso no autorizado» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Se produce cuando una persona o proceso obtiene acceso sin autorización.
+
+### Exfiltración de información
+> **Prácticas relacionadas:**
+> - [Extraer información de sitios web](https://www.jesusninoc.com/01/25/extraer-informacion-de-sitios-web/)
+> - [Extraer información de un servidor web con PowerShell](https://www.jesusninoc.com/11/13/extraer-informacion-de-un-servidor-web-con-powershell/)
+> - [Leer de un fichero direcciones URL y extraer información de cada URL](https://www.jesusninoc.com/01/25/leer-de-un-fichero-direcciones-url-y-extraer-informacion-de-cada-url/)
+
+**Qué explicar**
+- Datos sensibles
+- Cuenta comprometida
+- Canal externo
+- Indicadores de exfiltración
+
+**Demo / práctica en clase**
+- Construir una línea temporal desde el acceso hasta la salida de información.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Exfiltración de información» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Consiste en la extracción no autorizada de información.
+
+```
+Servidor
+   ↓
+Datos sensibles
+   ↓
+Cuenta comprometida
+   ↓
+Canal externo
+   ↓
+Exfiltración
+```
+
+### Denegación de servicio
+> **Prácticas relacionadas:**
+> - [¿Qué es un ataque de denegación de servicio (DoS por sus siglas en inglés, Denial of Service)?](https://www.jesusninoc.com/03/18/que-es-un-ataque-de-denegacion-de-servicio-dos-por-sus-siglas-en-ingles-denial-of-service/)
+> - [Información en los logs sobre denegación de servicio con DoSHTTP](https://www.jesusninoc.com/11/21/informacion-en-los-logs-sobre-denegacion-de-servicio-con-doshttp/)
+
+**Qué explicar**
+- Disponibilidad
+- DoS/DDoS
+- Capacidad
+- Detección
+- Mitigación
+
+**Demo / práctica en clase**
+- Explicar una degradación de servicio usando métricas de peticiones, sin generar tráfico malicioso.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Denegación de servicio» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Busca impedir o degradar la disponibilidad de un servicio.
+
+### Incidentes web
+> **Prácticas relacionadas:**
+> - [Introduccion a OWASP Top Ten 2017](https://www.jesusninoc.com/12/29/introduccion-a-owasp-top-ten-2017/)
+> - [Enseñando Inyección SQL de forma práctica con Docker y MySQL](https://www.jesusninoc.com/05/03/ensenando-inyeccion-sql-de-forma-practica-con-docker-y-mysql/)
+> - [Detección y corrección de vulnerabilidades de aplicaciones web (Puesta en producción segura)](https://www.jesusninoc.com/02/15/deteccion-y-correccion-de-vulnerabilidades-de-aplicaciones-web-puesta-en-produccion-segura/)
+
+**Qué explicar**
+- Defacement
+- SQLi
+- XSS
+- Archivos expuestos
+- Sesiones
+- Autenticación
+
+**Demo / práctica en clase**
+- Analizar una aplicación de laboratorio vulnerable y localizar evidencias en logs.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Incidentes web» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Ejemplos:
+
+- Defacement.
+- Inyección SQL.
+- XSS.
+- Exposición de archivos.
+- Robo de sesiones.
+- Vulnerabilidades de autenticación.
+
+### Incidentes internos
+> **Prácticas relacionadas:**
+> - [Conocer los usuarios que ejecutan procesos en los equipos de una red con PowerShell](https://www.jesusninoc.com/09/24/conocer-los-usuarios-que-ejecutan-procesos-en-los-equipos-de-una-red-con-powershell/)
+> - [Ejercicios de PowerShell: crear una serie de jobs sobre información de procesos y almacenar dicha información en logs (ruta absoluta del nombre del log)](https://www.jesusninoc.com/11/29/ejercicios-de-powershell-crear-una-serie-de-jobs-sobre-informacion-de-procesos-y-almacenar-dicha-informacion-en-logs-ruta-absoluta-del-nombre-del-log/)
+> - [7. Gestión de procesos en PowerShell para administradores de sistemas (nivel básico)](https://www.jesusninoc.com/11/13/7-gestion-de-procesos-en-powershell-para-administradores-de-sistemas/)
+
+**Qué explicar**
+- Error
+- Uso indebido
+- Exceso de permisos
+- Mala configuración
+- Insider
+
+**Demo / práctica en clase**
+- Resolver un caso donde una cuenta interna accede a un recurso que no necesita.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Incidentes internos» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Pueden estar provocados por:
+
+- Error humano.
+- Uso indebido.
+- Acceso excesivo.
+- Mala configuración.
+- Usuario malicioso.
+
+### Incidentes físicos
+> **Prácticas relacionadas:**
+> - [3. Gestión del hardware en Linux (nivel intermedio)](https://www.jesusninoc.com/04/25/3-gestion-del-hardware-en-linux-nivel-intermedio/)
+> - [3. Gestión del hardware en PowerShell (nivel intermedio) (utilizando llamadas CIM)](https://www.jesusninoc.com/05/12/3-gestion-del-hardware-en-powershell-nivel-intermedio-utilizando-llamadas-cim/)
+> - [3. Gestión del hardware en PowerShell para administradores de sistemas (nivel básico)](https://www.jesusninoc.com/10/22/3-gestion-del-hardware-en-powershell-para-administradores-de-sistemas/)
+
+**Qué explicar**
+- Robo
+- Acceso al CPD
+- Electricidad
+- Incendio
+- Inundación
+
+**Demo / práctica en clase**
+- Diseñar sensores y alertas para un CPD de laboratorio.
+
+**Recurso de jesusninoc.com:** [Detección de movimiento con Wi-Fi y ESP32/CSI](https://www.jesusninoc.com/09/18/como-detectar-movimiento-con-wi-fi-utilizando-un-esp32-y-csi/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Incidentes físicos» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+No todos los incidentes son puramente digitales.
+
+Ejemplos:
+
+- Robo de ordenador.
+- Manipulación de servidores.
+- Acceso no autorizado al CPD.
+- Corte eléctrico.
+- Incendio.
+- Inundación.
+
+## Controles, herramientas y mecanismos de monitorización, identificación, detección y alerta de incidentes: tipos y fuentes
+
+**Qué explicar**
+- Definición y finalidad de «Controles, herramientas y mecanismos de monitorización, identificación, detección y alerta de incidentes: tipos y fuentes»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «Controles, herramientas y mecanismos de monitorización, identificación, detección y alerta de incidentes: tipos y fuentes».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Controles, herramientas y mecanismos de monitorización, identificación, detección y alerta de incidentes: tipos y fuentes» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La detección puede apoyarse en diferentes fuentes.
+
+### Logs
+> **Prácticas relacionadas:**
+> - [Monitor de Logs interactivo con filtros (Versión Bash)](https://www.jesusninoc.com/06/26/monitor-de-logs-interactivo-con-filtros-version-bash/)
+> - [Mostrar el registro de eventos del día anterior](https://www.jesusninoc.com/12/19/mostrar-el-registro-de-eventos-del-dia-anterior/)
+
+**Qué explicar**
+- Fuentes de logs
+- Formato
+- Timestamp
+- Usuario
+- IP
+- Evento
+- Correlación
+
+**Demo / práctica en clase**
+- Procesar logs con Python y contar fallos de autenticación por IP.
+
+**Recurso de jesusninoc.com:** [Análisis de conexiones de red](https://www.jesusninoc.com/05/01/analisis-de-conexiones-de-red/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Logs» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Los registros pueden proceder de:
+
+- Sistemas operativos.
+- Servidores.
+- Firewalls.
+- Routers.
+- Switches.
+- Bases de datos.
+- Aplicaciones.
+- VPN.
+- Sistemas de autenticación.
+- Servicios cloud.
+
+Ejemplo:
+
+```
+2026-10-01 08:31
+User: admin
+IP: 192.168.1.50
+Event: Login failed
+```
+
+Un único intento puede no ser relevante.
+
+Pero:
+
+```
+08:31 → fallo
+08:31 → fallo
+08:31 → fallo
+...
+08:32 → 500 fallos
+```
+
+puede generar una alerta.
+
+### SIEM
+
+**Qué explicar**
+- Centralización
+- Normalización
+- Correlación
+- Reglas
+- Alertas
+- Casos de uso
+
+**Demo / práctica en clase**
+- Construir un mini-SIEM didáctico en Python con varios ficheros de logs.
+
+**Recurso de jesusninoc.com:** [Agente de ciberseguridad con Gemini y Python](https://www.jesusninoc.com/09/23/como-crear-un-agente-de-ciberseguridad-con-gemini-y-python/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «SIEM» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Un **SIEM (Security Information and Event Management)** centraliza y correlaciona eventos.
+
+```
+Firewall ──────┐
+EDR ───────────┤
+Active Directory├──→ SIEM → Correlación → Alerta
+VPN ───────────┤
+Servidor ──────┘
+```
+
+Puede detectar patrones que serían difíciles de identificar analizando cada sistema de manera aislada.
+
+### IDS
+
+**Qué explicar**
+- Detección
+- Firmas
+- Anomalías
+- Alertas
+- Falsos positivos
+
+**Demo / práctica en clase**
+- Analizar una captura de tráfico y decidir qué eventos justificarían una alerta.
+
+**Recurso de jesusninoc.com:** [Wireshark](https://www.jesusninoc.com/tag/wireshark/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «IDS» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Un **IDS (Intrusion Detection System)** detecta actividad sospechosa.
+
+### IPS
+
+**Qué explicar**
+- Detección frente a prevención
+- Bloqueo
+- Reglas
+- Riesgo de falsos positivos
+
+**Demo / práctica en clase**
+- Relacionar una alerta de red con una regla defensiva de firewall.
+
+**Recurso de jesusninoc.com:** [Revisión de reglas de firewall](https://www.jesusninoc.com/09/19/como-revisar-las-reglas-del-firewall-en-windows-y-linux/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «IPS» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Un **IPS (Intrusion Prevention System)** puede además intervenir para bloquear determinadas actividades.
+
+### EDR
+
+**Qué explicar**
+- Endpoint
+- Procesos
+- Telemetría
+- Comportamiento
+- Aislamiento
+
+**Demo / práctica en clase**
+- Reconstruir una cadena de procesos sospechosa y decidir cuándo aislar el equipo.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «EDR» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Permite monitorizar los *endpoints* y analizar comportamientos.
+
+### NDR
+> **Prácticas relacionadas:**
+> - [Escaneo y análisis de redes Wi-Fi con captura de paquetes y estimación de distancia](https://www.jesusninoc.com/09/08/escaneo-y-analisis-de-redes-wi-fi-con-captura-de-paquetes-y-estimacion-de-distancia/)
+> - [Análisis de conexiones TCP con Wireshark](https://www.jesusninoc.com/04/03/analisis-de-conexiones-tcp-con-wireshark/)
+> - [Análisis de conexiones TCP con Wireshark (negociación en tres pasos y cierre de una conexión)](https://www.jesusninoc.com/04/06/analisis-de-conexiones-tcp-con-wireshark-negociacion-en-tres-pasos-y-cierre-de-una-conexion/)
+
+**Qué explicar**
+- Comportamiento de red
+- Flujos
+- DNS
+- Conexiones
+- Anomalías
+
+**Demo / práctica en clase**
+- Analizar una captura de red y agrupar comunicaciones por IP, puerto y protocolo.
+
+**Recurso de jesusninoc.com:** [Análisis de conexiones de red](https://www.jesusninoc.com/05/01/analisis-de-conexiones-de-red/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «NDR» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Las soluciones **NDR (Network Detection and Response)** analizan el comportamiento de la red.
+
+### SOAR
+> **Prácticas relacionadas:**
+> - [La IA generativa en la automatización de la respuesta a incidentes: el salto cuántico en SOCs](https://www.jesusninoc.com/06/28/la-ia-generativa-en-la-automatizacion-de-la-respuesta-a-incidentes-el-salto-cuantico-en-socs/)
+
+**Qué explicar**
+- Orquestación
+- Automatización
+- Playbooks
+- IOC
+- Ticketing
+- Respuesta
+
+**Demo / práctica en clase**
+- Simular un flujo: alerta → comprobar IP → registrar → generar respuesta.
+
+**Recurso de jesusninoc.com:** [Agente de ciberseguridad con Gemini y Python](https://www.jesusninoc.com/09/23/como-crear-un-agente-de-ciberseguridad-con-gemini-y-python/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «SOAR» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Las plataformas **SOAR (Security Orchestration, Automation and Response)** permiten automatizar determinadas acciones de respuesta.
+
+Ejemplo:
+
+```
+Alerta
+ ↓
+SOAR
+ ↓
+Comprobar IP
+ ↓
+Consultar reputación
+ ↓
+Crear ticket
+ ↓
+Bloquear indicador
+ ↓
+Avisar al analista
+```
+
+## Controles, herramientas y mecanismos de detección e identificación de incidentes de seguridad física
+
+**Qué explicar**
+- CCTV
+- Acceso
+- Sensores
+- Alarmas
+- Correlación físico-digital
+
+**Demo / práctica en clase**
+- Sensor → ESP32 → evento → log → alerta.
+
+**Recurso de jesusninoc.com:** [Detección de movimiento con ESP32 y CSI](https://www.jesusninoc.com/09/18/como-detectar-movimiento-con-wi-fi-utilizando-un-esp32-y-csi/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Controles, herramientas y mecanismos de detección e identificación de incidentes de seguridad física» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La seguridad física protege los elementos materiales que soportan los sistemas de información.
+
+Puede utilizar:
+
+- CCTV.
+- Control de acceso.
+- Tarjetas.
+- Biometría.
+- Detectores de movimiento.
+- Sensores de apertura.
+- Alarmas.
+- Detectores de humo.
+- Control de temperatura.
+- Sensores de inundación.
+- Sistemas de alimentación ininterrumpida.
+
+Ejemplo:
+
+```
+Sensor de puerta
+       ↓
+Puerta del CPD abierta
+       ↓
+Evento
+       ↓
+Sistema de seguridad
+       ↓
+Alerta
+       ↓
+Personal de seguridad
+       ↓
+Investigación
+```
+
+Los registros físicos también pueden ser importantes durante una investigación.
+
+Por ejemplo:
+
+```
+02:15 → tarjeta de empleado
+02:17 → acceso CPD
+02:20 → alarma servidor
+02:25 → desconexión equipo
+```
+
+La correlación entre registros físicos y digitales puede ayudar a reconstruir una secuencia de acontecimientos.
+
+## Controles, herramientas y mecanismos de monitorización, identificación, detección y alerta de incidentes a través de la investigación en fuentes abiertas (OSINT)
+
+**Qué explicar**
+- DNS
+- Dominios
+- Subdominios
+- Certificados
+- Repositorios
+- Fuentes públicas
+- IOC
+
+**Demo / práctica en clase**
+- Investigar un dominio propio o de laboratorio a partir de DNS y fuentes abiertas, respetando autorización y legislación.
+
+**Recurso de jesusninoc.com:** [Agente de ciberseguridad con Gemini y Python](https://www.jesusninoc.com/09/23/como-crear-un-agente-de-ciberseguridad-con-gemini-y-python/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Controles, herramientas y mecanismos de monitorización, identificación, detección y alerta de incidentes a través de la investigación en fuentes abiertas (OSINT)» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+**OSINT (Open Source Intelligence)** consiste en obtener y analizar información procedente de fuentes abiertas y legalmente accesibles.
+
+Puede utilizarse para:
+
+- Identificar dominios.
+- Identificar subdominios.
+- Conocer información pública sobre una organización.
+- Analizar exposiciones de información.
+- Detectar suplantaciones.
+- Investigar campañas.
+- Conocer indicadores de compromiso publicados.
+- Analizar información relacionada con una amenaza.
+
+Fuentes posibles:
+
+- Sitios web.
+- Registros DNS.
+- Certificados públicos.
+- Repositorios de código.
+- Redes sociales.
+- Noticias.
+- Bases de datos públicas.
+- Informes de seguridad.
+- Fuentes de inteligencia de amenazas.
+
+En un entorno profesional debe respetarse siempre la legislación aplicable y las autorizaciones correspondientes.
+
+## Clasificación, valoración, documentación, seguimiento inicial de incidentes de ciberseguridad
+
+**Qué explicar**
+- Severidad
+- Criterios
+- Activo afectado
+- Tipo de incidente
+- Estado
+- Responsable
+
+**Demo / práctica en clase**
+- Crear una ficha INC-2026-XXXX y clasificarla.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Clasificación, valoración, documentación, seguimiento inicial de incidentes de ciberseguridad» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Cuando se detecta un incidente, debe registrarse.
+
+Un registro podría contener:
+
+```
+ID: INC-2026-0017
+Fecha: 01/10/2026
+Hora: 08:31
+Detectado por: EDR
+Activo: PC-034
+Tipo: Malware
+Severidad: Alta
+Estado: En investigación
+Responsable: Equipo CSIRT
+```
+
+### Clasificación
+
+**Qué explicar**
+- Definición y finalidad de «Clasificación»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «Clasificación».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Clasificación» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Puede establecerse:
+
+- Baja.
+- Media.
+- Alta.
+- Crítica.
+
+La clasificación debe basarse en criterios definidos previamente.
+
+### Valoración
+
+**Qué explicar**
+- Sistemas afectados
+- Criticidad
+- Datos
+- CIA
+- Usuarios
+- Impacto económico/legal/reputacional
+
+**Demo / práctica en clase**
+- Valorar tres incidentes con una matriz de impacto.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Valoración» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Se analiza:
+
+- Número de sistemas afectados.
+- Criticidad.
+- Información afectada.
+- Disponibilidad.
+- Confidencialidad.
+- Integridad.
+- Usuarios afectados.
+- Impacto económico.
+- Impacto legal.
+- Impacto reputacional.
+
+### Seguimiento inicial
+
+**Qué explicar**
+- Responsable
+- Próxima actuación
+- Evidencias
+- Acciones
+- Comunicaciones
+
+**Demo / práctica en clase**
+- Actualizar una ficha de incidente después de cada nueva evidencia.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Seguimiento inicial» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Debe determinarse:
+
+- Responsable.
+- Próxima actuación.
+- Sistemas afectados.
+- Evidencias disponibles.
+- Acciones realizadas.
+- Comunicaciones efectuadas.
+
+El ENS exige disponer de mecanismos de detección, criterios de clasificación, procedimientos de análisis y resolución, canales de comunicación y registro de las actuaciones.
+
+---
+
+# 3. Investigación de los incidentes de ciberseguridad
+
+**Qué explicar**
+- Definición y finalidad de «3. Investigación de los incidentes de ciberseguridad»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «3. Investigación de los incidentes de ciberseguridad».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «3. Investigación de los incidentes de ciberseguridad» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La investigación intenta reconstruir técnicamente el incidente.
+
+Puede representarse:
+
+```
+INCIDENTE
+   ↓
+EVIDENCIAS
+   ↓
+PRESERVACIÓN
+   ↓
+ANÁLISIS
+   ↓
+LÍNEA TEMPORAL
+   ↓
+HIPÓTESIS
+   ↓
+VALIDACIÓN
+   ↓
+CONCLUSIONES
+   ↓
+MEDIDAS
+```
+
+## Recopilación de evidencias
+> **Prácticas relacionadas:**
+> - [Buscar una cadena dentro de un fichero de volcado de memoria](https://www.jesusninoc.com/03/13/buscar-una-cadena-dentro-de-un-fichero-de-volcado-de-memoria/)
+
+**Qué explicar**
+- Evidencias digitales
+- Físicas
+- Externas
+- Preservación
+- Integridad
+
+**Demo / práctica en clase**
+- Preparar un inventario de evidencias de un incidente.
+
+**Recurso de jesusninoc.com:** [Listado de prácticas de seguridad y análisis forense](https://www.jesusninoc.com/02/11/listado-de-practicas-sobre-temas-de-seguridad/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Recopilación de evidencias» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Las evidencias pueden ser:
+
+### Digitales
+> **Prácticas relacionadas:**
+> - [Crear un fichero de volcado de memoria de un proceso](https://www.jesusninoc.com/03/04/crear-un-fichero-de-volcado-de-memoria-de-un-proceso/)
+> - [Crear un fichero de volcado de memoria de un proceso de forma gráfica](https://www.jesusninoc.com/10/14/crear-un-fichero-de-volcado-de-memoria-de-un-proceso-de-forma-grafica/)
+
+**Qué explicar**
+- Logs
+- Correos
+- Archivos
+- RAM
+- Disco
+- PCAP
+- Historiales
+- Metadatos
+
+**Demo / práctica en clase**
+- Clasificar evidencias digitales y explicar qué pregunta responde cada una.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Digitales» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+- Logs.
+- Correos.
+- Archivos.
+- Memoria RAM.
+- Imágenes de disco.
+- Capturas de tráfico.
+- Historiales.
+- Metadatos.
+- Registros de autenticación.
+- Registros de aplicaciones.
+
+### Físicas
+> **Prácticas relacionadas:**
+> - [Crear un dispositivo USB «booteable» desde Powershell](https://www.jesusninoc.com/12/05/crear-un-dispositivo-usb-booteable-desde-powershell/)
+
+**Qué explicar**
+- Equipo
+- Disco
+- Móvil
+- USB
+- Documentación
+- Dispositivos de red
+
+**Demo / práctica en clase**
+- Diseñar el registro de adquisición de un dispositivo.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Físicas» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+- Ordenadores.
+- Discos.
+- Teléfonos.
+- USB.
+- Documentación.
+- Dispositivos de red.
+
+### Evidencias externas
+
+**Qué explicar**
+- Cloud
+- ISP
+- Proveedores
+- Informes
+- IOC
+- Fuentes externas
+
+**Demo / práctica en clase**
+- Integrar un IOC recibido de un proveedor en la investigación.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Evidencias externas» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+- Información proporcionada por proveedores.
+- Registros cloud.
+- Información de ISP.
+- Informes de seguridad.
+- Indicadores de compromiso.
+
+La recopilación debe preservar la integridad de las evidencias.
+
+### Cadena de custodia
+
+**Qué explicar**
+- Quién
+- Cuándo
+- Dónde
+- Cómo
+- Almacenamiento
+- Acceso
+- Hash
+
+**Demo / práctica en clase**
+- Crear una ficha de cadena de custodia y calcular un hash de la evidencia.
+
+**Recurso de jesusninoc.com:** [Hashes y programación segura en Python](https://www.jesusninoc.com/07/09/utilizacion-de-tecnicas-de-programacion-segura-en-python/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Cadena de custodia» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Debe poder conocerse:
+
+```
+Quién obtiene la evidencia
+        ↓
+Cuándo
+        ↓
+Dónde
+        ↓
+Cómo
+        ↓
+Quién la almacena
+        ↓
+Quién la analiza
+        ↓
+Qué modificaciones se producen
+```
+
+Un ejemplo:
+
+```
+Evidencia E-001
+SHA-256: abc123...
+
+01/10 09:30 → adquirida por Analista A
+01/10 09:45 → almacenada en repositorio
+01/10 10:30 → analizada por Analista B
+```
+
+## Análisis de evidencias
+
+**Qué explicar**
+- Logs
+- Disco
+- Memoria
+- Red
+- Correlación
+
+**Demo / práctica en clase**
+- Separar una investigación en cuatro líneas de análisis.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Análisis de evidencias» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+El análisis puede realizarse desde diferentes perspectivas.
+
+### Análisis de logs
+> **Prácticas relacionadas:**
+> - [Buscar comportamientos extraños en los logs](https://www.jesusninoc.com/05/04/buscar-comportamientos-extranos-en-los-logs/)
+
+**Qué explicar**
+- Primer acceso
+- Autenticaciones
+- Errores
+- Administración
+- Conexiones
+- Cambios
+
+**Demo / práctica en clase**
+- Buscar el primer acceso y los eventos posteriores.
+
+**Recurso de jesusninoc.com:** [Análisis de conexiones de red](https://www.jesusninoc.com/05/01/analisis-de-conexiones-de-red/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Análisis de logs» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Permite identificar:
+
+- Primer acceso.
+- Autenticaciones.
+- Errores.
+- Actividad administrativa.
+- Conexiones.
+- Cambios de configuración.
+
+### Análisis de disco
+> **Prácticas relacionadas:**
+> - [Análisis forense informático](https://www.jesusninoc.com/10/01/analisis-forense-informatico/)
+> - [Aplicación de metodologías de análisis forenses (Análisis forense informático)](https://www.jesusninoc.com/02/18/aplicacion-de-metodologias-de-analisis-forenses-analisis-forense-informatico/)
+> - [Realización de análisis forenses en dispositivos móviles (Análisis forense informático)](https://www.jesusninoc.com/02/19/realizacion-de-analisis-forenses-en-dispositivos-moviles-analisis-forense-informatico/)
+
+**Qué explicar**
+- Archivos
+- Persistencia
+- Programas
+- Historial
+- Metadatos
+- Timestamps
+
+**Demo / práctica en clase**
+- Analizar una imagen de disco de laboratorio y localizar artefactos.
+
+**Recurso de jesusninoc.com:** [Listado de prácticas de seguridad](https://www.jesusninoc.com/02/11/listado-de-practicas-sobre-temas-de-seguridad/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Análisis de disco» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Puede buscar:
+
+- Archivos maliciosos.
+- Programas instalados.
+- Persistencia.
+- Historial.
+- Documentos.
+- Metadatos.
+
+### Análisis de memoria
+> **Prácticas relacionadas:**
+> - [Crear un fichero de volcado de memoria de un proceso y detectar DLL](https://www.jesusninoc.com/10/22/crear-un-fichero-de-volcado-de-memoria-de-un-proceso-y-detectar-dll/)
+> - [Realizar un volcado de memoria de un proceso cuando se empieza a ejecutar](https://www.jesusninoc.com/09/14/realizar-un-volcado-de-memoria-de-un-proceso-cuando-se-empieza-a-ejecutar/)
+
+**Qué explicar**
+- Procesos
+- Conexiones
+- DLL
+- Comandos
+- Indicadores de malware
+
+**Demo / práctica en clase**
+- Usar una imagen de memoria preparada y localizar procesos/conexiones.
+
+**Recurso de jesusninoc.com:** [Listado de prácticas de seguridad](https://www.jesusninoc.com/02/11/listado-de-practicas-sobre-temas-de-seguridad/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Análisis de memoria» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La memoria RAM puede contener información que no aparece directamente en el disco.
+
+Puede estudiarse:
+
+- Procesos.
+- Conexiones.
+- DLL.
+- Comandos.
+- Credenciales en determinados escenarios.
+- Indicadores de malware.
+
+### Análisis de red
+
+**Qué explicar**
+- IP
+- Puertos
+- Protocolos
+- DNS
+- HTTP/HTTPS
+- Patrones
+
+**Demo / práctica en clase**
+- Capturar una comunicación de laboratorio y analizarla con Wireshark.
+
+**Recurso de jesusninoc.com:** [Análisis de conexiones y Wireshark](https://www.jesusninoc.com/05/01/analisis-de-conexiones-de-red/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Análisis de red» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Permite estudiar:
+
+- IP origen.
+- IP destino.
+- Puertos.
+- Protocolos.
+- DNS.
+- HTTP/HTTPS.
+- Patrones de comunicación.
+
+## Investigación del incidente
+
+**Qué explicar**
+- Preguntas de investigación
+- Hipótesis
+- Evidencias
+- Causa
+- Alcance
+- Persistencia
+- Exfiltración
+
+**Demo / práctica en clase**
+- Resolver un caso completo a partir de evidencias ficticias.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Investigación del incidente» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Una investigación debe intentar responder preguntas concretas:
+
+1. ¿Qué ocurrió?
+2. ¿Cuándo comenzó?
+3. ¿Cómo se produjo el acceso?
+4. ¿Qué vulnerabilidad o debilidad fue aprovechada?
+5. ¿Qué sistemas fueron afectados?
+6. ¿Qué cuentas fueron utilizadas?
+7. ¿Qué información fue accesible?
+8. ¿Hubo movimiento lateral?
+9. ¿Hubo persistencia?
+10. ¿Hubo exfiltración?
+11. ¿Continúa la amenaza?
+12. ¿Qué controles fallaron?
+
+### Construcción de una línea temporal
+
+**Qué explicar**
+- Orden cronológico
+- Timestamps
+- Relación entre eventos
+- Punto inicial
+- Detección
+- Contención
+
+**Demo / práctica en clase**
+- Construir una timeline con los eventos del incidente.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Construcción de una línea temporal» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La línea temporal es una herramienta fundamental.
+
+```
+08:15 → correo malicioso recibido
+08:17 → usuario abre documento
+08:18 → proceso sospechoso iniciado
+08:20 → conexión externa
+08:23 → credenciales comprometidas
+08:31 → acceso a servidor
+08:35 → alerta EDR
+08:38 → equipo aislado
+```
+
+Esto permite relacionar acontecimientos que inicialmente parecían independientes.
+
+## Intercambio de información del incidente con proveedores u organismos competentes
+
+**Qué explicar**
+- IOC
+- IP
+- Dominio
+- Hash
+- Impacto
+- Necesidad de saber
+- Canales de comunicación
+
+**Demo / práctica en clase**
+- Preparar una ficha de IOC para compartir con un CSIRT.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Intercambio de información del incidente con proveedores u organismos competentes» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Una organización puede necesitar comunicarse con:
+
+- Proveedor cloud.
+- Proveedor de telecomunicaciones.
+- Fabricante.
+- Empresa de seguridad.
+- CSIRT.
+- Autoridad competente.
+- Fuerzas y Cuerpos de Seguridad cuando corresponda.
+
+La información debe compartirse siguiendo procedimientos definidos.
+
+Puede incluir:
+
+- Fecha.
+- Hora.
+- Sistemas afectados.
+- Indicadores de compromiso.
+- IP.
+- Dominios.
+- Hashes.
+- Tipo de malware.
+- Impacto.
+- Medidas adoptadas.
+
+No debe compartirse información de manera indiscriminada.
+
+Debe aplicarse el principio de **necesidad de saber**.
+
+## Medidas de contención de incidentes
+
+**Qué explicar**
+- Definición y finalidad de «Medidas de contención de incidentes»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «Medidas de contención de incidentes».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Medidas de contención de incidentes» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La contención pretende impedir que el incidente continúe propagándose.
+
+Puede ser:
+
+### Contención de un equipo
+
+**Qué explicar**
+- Aislamiento
+- Preservación
+- Análisis
+- No destruir evidencias
+
+**Demo / práctica en clase**
+- Simular el procedimiento de aislamiento de un equipo comprometido.
+
+**Recurso de jesusninoc.com:** [Revisión del firewall en Windows y Linux](https://www.jesusninoc.com/09/19/como-revisar-las-reglas-del-firewall-en-windows-y-linux/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Contención de un equipo» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+```
+Equipo comprometido
+       ↓
+Aislamiento de red
+       ↓
+Preservación de evidencias
+       ↓
+Análisis
+```
+
+### Contención de una cuenta
+> **Prácticas relacionadas:**
+> - [Cuenta Bloqueada Bancolombia (PHISHING)](https://www.jesusninoc.com/11/27/cuenta-bloqueada-bancolombia-phishing/)
+> - [Ejercicios de PowerShell: pedir al usuario un nombre de usuario y una contraseña y verificar que son credenciales correctos en el sistema operativo (crear una función compleja para realizar la validación utilizando System.Security.SecureString)](https://www.jesusninoc.com/11/28/ejercicios-de-powershell-pedir-al-usuario-un-nombre-de-usuario-y-una-contrasena-y-verificar-que-son-credenciales-correctos-en-el-sistema-operativo-crear-una-funcion-compleja-para-realizar-la-validac-2/)
+> - [Ejercicios de PowerShell: pedir al usuario un nombre de usuario y una contraseña y verificar que son credenciales correctos en el sistema operativo (crear una función compleja para realizar la validación)](https://www.jesusninoc.com/11/26/ejercicios-de-powershell-pedir-al-usuario-un-nombre-de-usuario-y-una-contrasena-y-verificar-que-son-credenciales-correctos-en-el-sistema-operativo-crear-una-funcion-compleja-para-realizar-la-validac/)
+
+**Qué explicar**
+- Deshabilitación
+- Revocación de sesiones
+- Cambio de credenciales
+- MFA
+- Permisos
+
+**Demo / práctica en clase**
+- Crear el procedimiento para una cuenta comprometida.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Contención de una cuenta» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Puede consistir en:
+
+- Deshabilitarla.
+- Revocar sesiones.
+- Restablecer credenciales.
+- Revocar tokens.
+- Aplicar MFA.
+- Revisar permisos.
+
+### Contención de una red
+> **Prácticas relacionadas:**
+> - [Abrir un puerto en el firewall de Windows](https://www.jesusninoc.com/03/01/abrir-un-puerto-en-el-firewall-de-windows/)
+
+**Qué explicar**
+- Segmentación
+- ACL
+- Firewall
+- VLAN
+- IOC
+
+**Demo / práctica en clase**
+- Diseñar una regla de contención para una IP de laboratorio.
+
+**Recurso de jesusninoc.com:** [Revisión de reglas de firewall](https://www.jesusninoc.com/09/19/como-revisar-las-reglas-del-firewall-en-windows-y-linux/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Contención de una red» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Puede utilizarse:
+
+- Segmentación.
+- ACL.
+- Firewall.
+- Bloqueo de indicadores.
+- Aislamiento de VLAN.
+
+### Contención de una aplicación
+> **Prácticas relacionadas:**
+> - [Crear una aplicación Web en IIS desde PowerShell desarrollada con ASP.NET (ASMX) y después utilizar un método con New-WebServiceProxy](https://www.jesusninoc.com/06/05/crear-una-aplicacion-web-en-iis-desde-powershell-desarrollada-con-asp-net-asmx-y-despues-utilizar-un-metodo-con-new-webserviceproxy/)
+> - [Crear una aplicación web rápida en Python utilizando el framework FastAPI](https://www.jesusninoc.com/08/09/crear-una-aplicacion-web-rapida-en-python-utilizando-el-framework-fastapi/)
+> - [Servicios de red implicados en el despliegue de una aplicación Web (Despliegue de aplicaciones web)](https://www.jesusninoc.com/07/24/servicios-de-red-implicados-en-el-despliegue-de-una-aplicacion-web-despliegue-de-aplicaciones-web/)
+
+**Qué explicar**
+- WAF
+- Deshabilitar funciones
+- Versiones vulnerables
+- Limitación de acceso
+
+**Demo / práctica en clase**
+- Diseñar un procedimiento para retirar temporalmente una función vulnerable.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Contención de una aplicación» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Puede implicar:
+
+- Desactivar temporalmente una función.
+- Aplicar una regla WAF.
+- Retirar una versión vulnerable.
+- Limitar el acceso.
+
+El ENS contempla expresamente medidas de gestión de incidentes como el aislamiento del sistema afectado, la recogida de evidencias, la protección de registros y la asignación de recursos para investigar las causas y consecuencias.
+
+---
+
+# 4. Implementación de medidas de ciberseguridad
+
+**Qué explicar**
+- Definición y finalidad de «4. Implementación de medidas de ciberseguridad»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «4. Implementación de medidas de ciberseguridad».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «4. Implementación de medidas de ciberseguridad» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La respuesta ante incidentes debe estar preparada antes de que se produzcan.
+
+Una organización no debería improvisar durante una crisis.
+
+## Desarrollar procedimientos de actuación detallados para dar respuesta, mitigar, eliminar o contener los tipos de incidentes
+
+**Qué explicar**
+- Pasos
+- Responsables
+- Herramientas
+- Escalado
+- Evidencias
+- Comunicación
+
+**Demo / práctica en clase**
+- Redactar un procedimiento completo para phishing o ransomware.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Desarrollar procedimientos de actuación detallados para dar respuesta, mitigar, eliminar o contener los tipos de incidentes» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Para cada tipo de incidente debe existir un procedimiento.
+
+Ejemplo de procedimiento para ransomware:
+
+```
+1. Detectar
+      ↓
+2. Confirmar
+      ↓
+3. Aislar equipos
+      ↓
+4. Preservar evidencias
+      ↓
+5. Identificar alcance
+      ↓
+6. Proteger copias
+      ↓
+7. Erradicar malware
+      ↓
+8. Corregir vulnerabilidad
+      ↓
+9. Restaurar
+      ↓
+10. Monitorizar
+      ↓
+11. Documentar
+```
+
+Un procedimiento debe indicar:
+
+- Qué hacer.
+- Quién lo hace.
+- Cuándo.
+- Con qué herramienta.
+- A quién informar.
+- Cuándo escalar.
+- Qué información conservar.
+
+### Playbooks
+
+**Qué explicar**
+- Objetivo
+- Precondiciones
+- Pasos
+- Responsables
+- Escalado
+- Criterios de cierre
+
+**Demo / práctica en clase**
+- Construir un playbook de phishing con diez pasos.
+
+**Recurso de jesusninoc.com:** [Agente de ciberseguridad con Gemini y Python](https://www.jesusninoc.com/09/23/como-crear-un-agente-de-ciberseguridad-con-gemini-y-python/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Playbooks» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Un *playbook* es una guía operacional para responder a un escenario concreto.
+
+Ejemplos:
+
+- *Phishing*.
+- Ransomware.
+- Cuenta comprometida.
+- Malware.
+- DDoS.
+- Fuga de información.
+- Robo de dispositivo.
+- Vulnerabilidad crítica.
+
+## Implantar capacidades de ciberresiliencia: anticipación, resistencia, recuperación y evolución
+> **Prácticas relacionadas:**
+> - [Ejercicios de PowerShell: comprobar que los ficheros que tengo en una carpeta son correctos en la copia de seguridad mediante la integridad (ejercicio sobre copias de seguridad con integridad)](https://www.jesusninoc.com/12/08/ejercicios-de-powershell-comprobar-que-los-ficheros-que-tengo-en-una-carpeta-son-correctos-en-la-copia-de-seguridad-mediante-la-integridad-ejercicio-sobre-copias-de-seguridad-con-integridad/)
+> - [Ejercicios de PowerShell: crear una función que realiza una copia de seguridad en el día de hoy](https://www.jesusninoc.com/12/14/ejercicios-de-powershell-crear-una-funcion-que-realiza-una-copia-de-seguridad-en-el-dia-de-hoy/)
+
+**Qué explicar**
+- Anticipación
+- Resistencia
+- Recuperación
+- Evolución
+- Continuidad
+
+**Demo / práctica en clase**
+- Simular un ransomware y recorrer las cuatro capacidades.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Implantar capacidades de ciberresiliencia: anticipación, resistencia, recuperación y evolución» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La **ciberresiliencia** busca que una organización pueda continuar funcionando o recuperarse frente a incidentes.
+
+Puede dividirse en cuatro capacidades:
+
+### Anticipación
+
+**Qué explicar**
+- Riesgo
+- Threat intelligence
+- Formación
+- Simulaciones
+- Vulnerabilidades
+- Contingencia
+
+**Demo / práctica en clase**
+- Preparar medidas antes de un incidente.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Anticipación» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Consiste en prepararse antes del incidente.
+
+Incluye:
+
+- Análisis de riesgos.
+- Inteligencia de amenazas.
+- Formación.
+- Simulaciones.
+- Evaluaciones de vulnerabilidades.
+- Planes de contingencia.
+
+### Resistencia
+
+**Qué explicar**
+- Redundancia
+- Alta disponibilidad
+- Segmentación
+- Sistemas alternativos
+
+**Demo / práctica en clase**
+- Diseñar una arquitectura que mantenga un servicio crítico.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Resistencia» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Consiste en mantener las funciones esenciales durante el incidente.
+
+Ejemplos:
+
+- Redundancia.
+- Alta disponibilidad.
+- Segmentación.
+- Sistemas alternativos.
+
+### Recuperación
+> **Prácticas relacionadas:**
+> - [Ejercicios de PowerShell: guardar una copia de seguridad de los nombres de los usuarios que están en nuestro sistema operativo, borrar todos los usuarios y recuperar los usuarios que están en la copia de seguridad](https://www.jesusninoc.com/01/14/ejercicios-de-powershell-guardar-una-copia-de-seguridad-de-los-nombres-de-los-usuarios-que-estan-en-nuestro-sistema-operativo-borrar-todos-los-usuarios-y-recuperar-los-usuarios-que-estan-en-la-copia/)
+
+**Qué explicar**
+- Backup
+- Restauración
+- Verificación
+- Pruebas
+- Reincorporación
+
+**Demo / práctica en clase**
+- Diseñar un procedimiento de recuperación después de ransomware.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Recuperación» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Permite volver a la situación operativa.
+
+Incluye:
+
+- Backups.
+- Restauración.
+- Sistemas redundantes.
+- Procedimientos de recuperación.
+
+### Evolución
+
+**Qué explicar**
+- Causa raíz
+- Corrección
+- Nuevo control
+- Prueba
+- Mejora continua
+
+**Demo / práctica en clase**
+- Convertir un incidente en tres acciones correctivas.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Evolución» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Después del incidente se modifican los controles para evitar una repetición.
+
+```
+Incidente
+   ↓
+Investigación
+   ↓
+Causa raíz
+   ↓
+Corrección
+   ↓
+Nuevo control
+   ↓
+Prueba
+   ↓
+Mejora
+```
+
+## Establecer flujos de toma de decisiones y escalado interno y/o externo adecuados
+
+**Qué explicar**
+- Severidad
+- Responsable inicial
+- CISO
+- Dirección
+- Organismos/proveedores
+
+**Demo / práctica en clase**
+- Resolver cuatro escenarios y decidir cuándo escalar.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Establecer flujos de toma de decisiones y escalado interno y/o externo adecuados» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Debe existir una matriz de escalado.
+
+| Severidad | Responsable inicial | Escalado                                |
+| --------- | ------------------- | --------------------------------------- |
+| Baja      | Técnico             | Responsable seguridad                   |
+| Media     | Seguridad           | CISO                                    |
+| Alta      | CISO                | Dirección                               |
+| Crítica   | Comité de crisis    | Dirección + organismos correspondientes |
+
+Ejemplo:
+
+```
+Alerta
+ ↓
+Analista
+ ↓
+¿Incidente confirmado?
+ ↓
+Sí
+ ↓
+Clasificación
+ ↓
+¿Alta gravedad?
+ ├── No → Gestión normal
+ └── Sí
+       ↓
+    Escalado
+       ↓
+     CISO
+       ↓
+ Dirección
+       ↓
+ Organismos/proveedores
+```
+
+## Tareas para reestablecer los servicios afectados por incidentes
+
+**Qué explicar**
+- Contención
+- Erradicación
+- Verificación
+- Restauración
+- Pruebas
+- Monitorización
+
+**Demo / práctica en clase**
+- Diseñar la vuelta controlada de un servidor comprometido.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Tareas para reestablecer los servicios afectados por incidentes» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La recuperación debe realizarse de manera controlada.
+
+Ejemplo:
+
+```
+Sistema comprometido
+       ↓
+Contención
+       ↓
+Erradicación
+       ↓
+Verificación
+       ↓
+Restauración
+       ↓
+Pruebas
+       ↓
+Reincorporación
+       ↓
+Monitorización
+```
+
+No siempre debe conectarse inmediatamente un sistema recuperado.
+
+Debe comprobarse:
+
+- Ausencia de malware.
+- Configuración.
+- Parches.
+- Credenciales.
+- Integridad.
+- Conectividad.
+- Logs.
+- Controles.
+
+El ENS establece la continuidad de la actividad como uno de los requisitos de seguridad y contempla procedimientos específicos para la gestión de incidentes y la recuperación de los sistemas.
+
+## Documentación
+
+**Qué explicar**
+- Identificación
+- Descripción
+- Análisis
+- Respuesta
+- Impacto
+- Acciones posteriores
+
+**Demo / práctica en clase**
+- Completar un informe de incidente a partir de un caso.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Documentación» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Todo incidente debe quedar documentado.
+
+Un informe puede contener:
+
+### Identificación
+
+**Qué explicar**
+- Qué debe documentarse en el apartado «Identificación»
+- Evidencias que justifican lo escrito
+- Responsable y fecha
+
+**Demo / práctica en clase**
+- Completar el campo «Identificación» de un informe de incidente.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Identificación» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+- Código.
+- Fecha.
+- Hora.
+- Responsable.
+- Sistemas afectados.
+
+### Descripción
+> **Prácticas relacionadas:**
+> - [Detección y documentación de incidentes de ciberseguridad (Incidentes de ciberseguridad)](https://www.jesusninoc.com/02/05/deteccion-y-documentacion-de-incidentes-de-ciberseguridad-incidentes-de-ciberseguridad/)
+
+**Qué explicar**
+- Qué debe documentarse en el apartado «Descripción»
+- Evidencias que justifican lo escrito
+- Responsable y fecha
+
+**Demo / práctica en clase**
+- Completar el campo «Descripción» de un informe de incidente.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Descripción» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+- Qué ocurrió.
+- Cómo se detectó.
+- Qué amenaza intervino.
+
+### Análisis
+> **Prácticas relacionadas:**
+> - [Análisis Forense](https://www.jesusninoc.com/02/05/analisis-forense/)
+
+**Qué explicar**
+- Qué debe documentarse en el apartado «Análisis»
+- Evidencias que justifican lo escrito
+- Responsable y fecha
+
+**Demo / práctica en clase**
+- Completar el campo «Análisis» de un informe de incidente.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Análisis» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+- Evidencias.
+- Línea temporal.
+- Sistemas afectados.
+- Causa raíz.
+
+### Respuesta
+
+**Qué explicar**
+- Qué debe documentarse en el apartado «Respuesta»
+- Evidencias que justifican lo escrito
+- Responsable y fecha
+
+**Demo / práctica en clase**
+- Completar el campo «Respuesta» de un informe de incidente.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Respuesta» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+- Contención.
+- Erradicación.
+- Recuperación.
+
+### Impacto
+
+**Qué explicar**
+- Qué debe documentarse en el apartado «Impacto»
+- Evidencias que justifican lo escrito
+- Responsable y fecha
+
+**Demo / práctica en clase**
+- Completar el campo «Impacto» de un informe de incidente.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Impacto» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+- Sistemas.
+- Datos.
+- Usuarios.
+- Servicios.
+- Costes.
+
+### Acciones posteriores
+
+**Qué explicar**
+- Qué debe documentarse en el apartado «Acciones posteriores»
+- Evidencias que justifican lo escrito
+- Responsable y fecha
+
+**Demo / práctica en clase**
+- Completar el campo «Acciones posteriores» de un informe de incidente.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Acciones posteriores» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+- Parches.
+- Cambios.
+- Formación.
+- Nuevos controles.
+
+## Seguimiento de incidentes para evitar una situación similar
+
+**Qué explicar**
+- Lecciones aprendidas
+- Causa raíz
+- Controles fallidos
+- Acciones correctivas
+- Verificación
+
+**Demo / práctica en clase**
+- Hacer una reunión post-incidente y convertir conclusiones en tareas.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Seguimiento de incidentes para evitar una situación similar» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+El incidente no termina cuando el sistema vuelve a funcionar.
+
+Debe realizarse una revisión posterior:
+
+```
+¿Qué ocurrió?
+      ↓
+¿Por qué ocurrió?
+      ↓
+¿Por qué no se detectó antes?
+      ↓
+¿Qué control falló?
+      ↓
+¿Qué debemos cambiar?
+      ↓
+¿Se ha implantado el cambio?
+      ↓
+¿Funciona?
+```
+
+Este proceso recibe habitualmente el nombre de **lecciones aprendidas** (*lessons learned*).
+
+---
+
+# 5. Detección y documentación de incidentes de ciberseguridad
+
+**Qué explicar**
+- Definición y finalidad de «5. Detección y documentación de incidentes de ciberseguridad»
+- Conceptos técnicos y organizativos relacionados
+- Relación con prevención, detección, investigación o respuesta
+
+**Demo / práctica en clase**
+- Plantear un caso práctico de laboratorio relacionado con «5. Detección y documentación de incidentes de ciberseguridad».
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «5. Detección y documentación de incidentes de ciberseguridad» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La detección permite identificar comportamientos que puedan representar una amenaza.
+
+La documentación permite transformar esos acontecimientos en información útil para:
+
+- Investigar.
+- Responder.
+- Cumplir obligaciones.
+- Mejorar controles.
+- Aprender de los errores.
+
+## Desarrollar procedimientos de actuación para la notificación de incidentes
+
+**Qué explicar**
+- Canal
+- Responsable
+- Información mínima
+- Prioridad
+- Tiempo
+- Escalado
+
+**Demo / práctica en clase**
+- Diseñar el flujo de notificación desde el usuario hasta el SOC/CSIRT.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Desarrollar procedimientos de actuación para la notificación de incidentes» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Debe existir un procedimiento claro.
+
+Ejemplo:
+
+```
+Usuario detecta anomalía
+          ↓
+Notifica
+          ↓
+Service Desk / SOC
+          ↓
+Registro del incidente
+          ↓
+Clasificación
+          ↓
+Análisis
+          ↓
+Escalado
+          ↓
+Respuesta
+```
+
+El procedimiento debe indicar:
+
+- Canal de notificación.
+- Personas responsables.
+- Información mínima.
+- Prioridad.
+- Tiempo de respuesta.
+- Escalado.
+
+Un usuario no debería preguntarse:
+
+> «¿A quién aviso?»
+
+Debe existir una respuesta definida:
+
+> «Utiliza este canal y comunica estos datos».
+
+## Notificación interna de incidentes. Protocolos de actuación
+
+**Qué explicar**
+- Ticket
+- Correo
+- Teléfono
+- SOC
+- CSIRT
+- Datos mínimos
+
+**Demo / práctica en clase**
+- Redactar una notificación inicial de phishing.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Notificación interna de incidentes. Protocolos de actuación» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La notificación interna puede realizarse mediante:
+
+- Sistema de tickets.
+- Correo específico.
+- Teléfono de emergencia.
+- Aplicación corporativa.
+- SOC.
+- CSIRT interno.
+
+La información inicial puede contener:
+
+```
+Quién informa
+Qué ha ocurrido
+Cuándo ocurrió
+Equipo afectado
+Usuario afectado
+Mensaje recibido
+Captura de pantalla
+Acciones realizadas
+```
+
+### Ejemplo
+
+**Qué explicar**
+- Qué datos incluir
+- Qué ocurrió
+- Cuándo
+- Equipo
+- Usuario
+- Acciones
+
+**Demo / práctica en clase**
+- Completar una ficha de incidente con datos ficticios.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Ejemplo» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+```
+INCIDENTE: posible phishing
+
+Usuario: empleado01
+Fecha: 01/10/2026
+Hora: 09:15
+Equipo: PC-024
+
+Descripción:
+Se ha recibido correo solicitando credenciales.
+
+Acción:
+El usuario no ha introducido datos y ha reportado el mensaje.
+```
+
+## Notificación de incidentes a quienes corresponda
+
+**Qué explicar**
+- Tipo de organización
+- Naturaleza
+- Datos afectados
+- Sector
+- Obligaciones
+- Impacto
+
+**Demo / práctica en clase**
+- Crear una matriz de notificación para tres tipos de incidentes.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Notificación de incidentes a quienes corresponda» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+No todos los incidentes deben comunicarse a las mismas entidades.
+
+Dependerá de:
+
+- Tipo de organización.
+- Naturaleza del incidente.
+- Información afectada.
+- Sector.
+- Obligaciones legales.
+- Contratos.
+- Criticidad.
+- Impacto.
+
+Por ello, una organización debe disponer de una **matriz de notificación**.
+
+```
+                    INCIDENTE
+                        │
+            ┌───────────┼───────────┐
+            ↓           ↓           ↓
+       Interno      Proveedor    Organismo
+            │           │           │
+           SOC         Cloud      CSIRT
+            │
+           CISO
+```
+
+Cuando se produzcan incidentes que afecten a datos personales, la gestión deberá coordinarse también con las obligaciones derivadas de la normativa de protección de datos.
+
+En el ámbito del ENS, el Real Decreto 311/2022 establece procedimientos de gestión de incidentes, mecanismos de detección, clasificación, análisis, resolución, comunicación y registro.
+
+## Computer Emergency Response Team (CERT/CSIRT). Equipos de respuesta ante emergencias informáticas
+
+**Qué explicar**
+- Prevención
+- Detección
+- Análisis
+- Respuesta
+- Coordinación
+- Vulnerabilidades
+- Threat intelligence
+
+**Demo / práctica en clase**
+- Simular la recepción y gestión de un incidente por un CSIRT.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Computer Emergency Response Team (CERT/CSIRT). Equipos de respuesta ante emergencias informáticas» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Un **CERT** o **CSIRT** es un equipo especializado en la prevención, detección, análisis y respuesta ante incidentes de seguridad informática.
+
+Aunque los términos tienen orígenes y matices diferentes, en la práctica se utilizan frecuentemente para referirse a equipos que desempeñan funciones de respuesta ante incidentes.
+
+### Definición, antecedentes históricos, organización, objetivos. Ámbito de actuación
+
+**Qué explicar**
+- Origen de los equipos de respuesta
+- Morris Worm 1988
+- Necesidad de coordinación
+- Objetivos y ámbito
+
+**Demo / práctica en clase**
+- Construir una línea temporal histórica de los equipos de respuesta.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Definición, antecedentes históricos, organización, objetivos. Ámbito de actuación» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Los primeros equipos de respuesta surgieron como consecuencia de la necesidad de coordinar incidentes que afectaban simultáneamente a diferentes sistemas y organizaciones.
+
+El concepto se consolidó especialmente a partir del **Morris Worm de 1988**, uno de los primeros incidentes de Internet que puso de manifiesto la necesidad de disponer de mecanismos organizados de coordinación y respuesta.
+
+Un CSIRT puede desarrollar funciones como:
+
+- Recepción de incidentes.
+- Análisis.
+- Clasificación.
+- Coordinación.
+- Investigación.
+- Gestión de vulnerabilidades.
+- Inteligencia de amenazas.
+- Generación de alertas.
+- Asistencia técnica.
+- Coordinación con otros equipos.
+
+### Organización de un CSIRT
+
+**Qué explicar**
+- Responsable
+- Análisis
+- Respuesta
+- Coordinación
+- Forense
+- Malware
+- Threat intelligence
+
+**Demo / práctica en clase**
+- Diseñar el organigrama de un CSIRT para una organización ficticia.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Organización de un CSIRT» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Una estructura posible sería:
+
+```
+                 RESPONSABLE CSIRT
+                        │
+        ┌───────────────┼───────────────┐
+        ↓               ↓               ↓
+    Análisis         Respuesta      Coordinación
+        │               │               │
+     Forense          Contención      Organismos
+     Malware          Recuperación    Proveedores
+     Threat Intel     Mitigación      Otros CSIRT
+```
+
+### Funciones preventivas
+
+**Qué explicar**
+- Alertas
+- Vulnerabilidades
+- Recomendaciones
+- IOC
+- Inteligencia
+- Ejercicios
+
+**Demo / práctica en clase**
+- Diseñar cinco actividades preventivas de un CSIRT.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Funciones preventivas» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+El CSIRT no debe limitarse a reaccionar.
+
+También puede:
+
+- Publicar alertas.
+- Analizar vulnerabilidades.
+- Elaborar recomendaciones.
+- Proporcionar indicadores de compromiso.
+- Compartir inteligencia.
+- Participar en ejercicios.
+- Ayudar a mejorar procedimientos.
+
+### Funciones durante un incidente
+
+**Qué explicar**
+- Recepción
+- Validación
+- Clasificación
+- Análisis
+- Coordinación
+- Contención
+- Erradicación
+- Recuperación
+
+**Demo / práctica en clase**
+- Representar el flujo de actuación ante un incidente.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Funciones durante un incidente» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+```
+Recepción
+   ↓
+Validación
+   ↓
+Clasificación
+   ↓
+Análisis
+   ↓
+Coordinación
+   ↓
+Contención
+   ↓
+Erradicación
+   ↓
+Recuperación
+   ↓
+Informe
+```
+
+### Funciones posteriores
+
+**Qué explicar**
+- Causa raíz
+- Informe
+- IOC
+- Procedimientos
+- Controles
+- Seguimiento
+
+**Demo / práctica en clase**
+- Preparar las acciones post-incidente.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Funciones posteriores» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Después del incidente:
+
+- Analizar causa raíz.
+- Elaborar informe.
+- Actualizar indicadores.
+- Revisar procedimientos.
+- Recomendar controles.
+- Compartir información pertinente.
+- Realizar seguimiento.
+
+### Ámbito de actuación
+
+**Qué explicar**
+- CSIRT interno
+- Sectorial
+- Nacional
+- Gubernamental
+- Académico
+- Proveedor
+
+**Demo / práctica en clase**
+- Comparar ámbitos y responsabilidades de distintos tipos de CSIRT.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Ámbito de actuación» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+El ámbito depende del tipo de CSIRT.
+
+Puede existir:
+
+- CSIRT interno de una empresa.
+- CSIRT de un sector.
+- CSIRT nacional.
+- CSIRT gubernamental.
+- CSIRT académico.
+- CSIRT militar.
+- CSIRT de un proveedor.
+
+En España existen diferentes capacidades de respuesta con ámbitos de actuación distintos.
+
+El **CCN-CERT** es la capacidad de respuesta ante incidentes del Centro Criptológico Nacional y desarrolla funciones especialmente vinculadas al sector público y a sistemas de interés estratégico.
+
+**INCIBE-CERT** actúa como equipo de respuesta de referencia de INCIBE para ciudadanos y entidades privadas, así como para determinados ámbitos relacionados con proveedores de servicios digitales.
+
+Además, el ENS establece que la respuesta del sector público se articula en torno al CCN-CERT y contempla mecanismos de coordinación con otras capacidades de respuesta, incluido ESPDEF-CERT para el ámbito de la Defensa Nacional.
+
+### CERT nacionales. Mecanismos de colaboración a nivel nacional e internacional
+
+**Qué explicar**
+- Cooperación
+- Intercambio de IOC
+- Coordinación nacional
+- Colaboración internacional
+
+**Demo / práctica en clase**
+- Simular el intercambio de un hash, dominio e IP entre equipos.
+
+**Recurso de referencia:** [jesusninoc.com](https://www.jesusninoc.com/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «CERT nacionales. Mecanismos de colaboración a nivel nacional e internacional» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+La gestión de un incidente grave puede requerir coordinación entre múltiples organizaciones.
+
+Ejemplo:
+
+```
+                 INCIDENTE
+                     │
+          ┌──────────┼──────────┐
+          ↓          ↓          ↓
+        Empresa   Proveedor   CSIRT
+          │          │          │
+          └──────────┼──────────┘
+                     ↓
+              CSIRT nacional
+                     │
+          ┌──────────┼──────────┐
+          ↓          ↓          ↓
+       Otros       Sector     Organismos
+       CSIRT       privado    públicos
+```
+
+La cooperación permite:
+
+- Compartir indicadores.
+- Detectar campañas coordinadas.
+- Identificar infraestructuras maliciosas.
+- Conocer nuevas amenazas.
+- Coordinar respuestas.
+- Evitar duplicar esfuerzos.
+- Mejorar la capacidad de prevención.
+
+A nivel nacional, el ENS establece mecanismos de coordinación de la respuesta a incidentes y atribuye al CCN la coordinación nacional de la respuesta técnica de los CSIRT en materia de seguridad de redes y sistemas del sector público.
+
+A nivel internacional, los CSIRT pueden colaborar mediante redes y mecanismos de intercambio de información.
+
+La colaboración puede incluir:
+
+```
+Indicador de compromiso
+        ↓
+Hash
+        ↓
+Dominio
+        ↓
+IP
+        ↓
+URL
+        ↓
+Técnica utilizada
+        ↓
+Campaña detectada
+```
+
+Un ejemplo práctico sería que una organización detecte un dominio utilizado para distribuir malware y comparta el indicador con su CSIRT de referencia. Otros equipos podrían utilizar esa información para buscar el mismo indicador en sus sistemas.
+
+---
+
+## Visión global del módulo
+
+**Qué explicar**
+- Prevención
+- Detección
+- Investigación
+- Respuesta
+- Notificación
+- Lecciones aprendidas
+- Mejora continua
+
+**Demo / práctica en clase**
+- Realizar una práctica final que recorra todo el ciclo de un incidente.
+
+**Recurso de jesusninoc.com:** [Material completo del módulo de incidentes de ciberseguridad](https://www.jesusninoc.com/09/30/incidentes-de-ciberseguridad/)
+
+**Preguntas para el alumnado**
+- ¿Qué evidencia demostraría que el control o procedimiento de «Visión global del módulo» funciona?
+- ¿Qué ocurriría si este control fallase?
+- ¿Qué registro o evidencia permitiría demostrar posteriormente lo ocurrido?
+
+Los cinco bloques están conectados entre sí y pueden enseñarse como un único ciclo de gestión:
+
+```
+┌──────────────────────────────────────────────┐
+│              1. PREVENCIÓN                   │
+│                                              │
+│ Formación · Concienciación · Controles      │
+│ Criptografía · Auditorías                    │
+└──────────────────────┬───────────────────────┘
+                       ↓
+┌──────────────────────────────────────────────┐
+│              2. DETECCIÓN                   │
+│                                              │
+│ SIEM · EDR · IDS/IPS · Logs · OSINT          │
+└──────────────────────┬───────────────────────┘
+                       ↓
+┌──────────────────────────────────────────────┐
+│              3. INVESTIGACIÓN               │
+│                                              │
+│ Evidencias · Logs · Forense · Línea temporal │
+└──────────────────────┬───────────────────────┘
+                       ↓
+┌──────────────────────────────────────────────┐
+│              4. RESPUESTA                   │
+│                                              │
+│ Contención · Erradicación · Recuperación     │
+│ Ciberresiliencia · Escalado                  │
+└──────────────────────┬───────────────────────┘
+                       ↓
+┌──────────────────────────────────────────────┐
+│              5. NOTIFICACIÓN                │
+│                                              │
+│ Registro · Comunicación · CSIRT/CERT         │
+└──────────────────────┬───────────────────────┘
+                       ↓
+                 LECCIONES APRENDIDAS
+                       ↓
+                MEJORA DE CONTROLES
+                       │
+                       └──────────────→ PREVENCIÓN
+```
+
+Este enfoque permite que el alumnado comprenda que **un incidente de ciberseguridad no es solamente un problema técnico**. Requiere combinar conocimientos de sistemas, redes, criptografía, análisis de evidencias, gestión de riesgos, procedimientos, comunicación, documentación y coordinación entre diferentes actores.
+
+Además, permite trabajar una idea fundamental durante todo el módulo:
+
+> **La detección de un incidente no es el final de la prevención, sino el comienzo de un proceso estructurado de respuesta, recuperación y mejora continua.**
